@@ -2,9 +2,9 @@ require 'rspec'
 require_relative '../lib/card.rb'
 
 RSpec.describe Card do
-    context "when card is initialized" do
-        new_card = Card.new("spades", 3)
+    let!(:new_card) { Card.new("spades", 3) }
 
+    context "when card is initialized" do
         it "will have a suit of spades" do
             expect(new_card.suit).to eq("spades")
         end
@@ -14,4 +14,9 @@ RSpec.describe Card do
         end
     end
 
+    describe ".read" do
+        it "prints card value and suit if valid" do
+            expect { new_card.read() }.to output("3 of spades\n").to_stdout
+        end
+    end
 end

@@ -6,7 +6,7 @@ class Card
         @value = value
     end
 
-#     def read
-#         puts "#{self.value} of #{self.suit}"
-#     end
+    def read
+        puts "#{self.value} of #{self.suit}"
+    end
 end
