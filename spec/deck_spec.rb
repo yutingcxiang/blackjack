@@ -16,10 +16,12 @@ RSpec.describe Deck do
       expect(new_deck_suits).to include('hearts')
       expect(new_deck_suits).to include('spades')
       expect(new_deck_suits).to include('clubs')
+      #make sure no additional suits
     end
 
     it 'will contain 13 different values' do
       expect(new_deck_values.uniq.count).to eq(13) 
+      #check individual values
     end
   end
 
@@ -29,6 +31,8 @@ RSpec.describe Deck do
     it 'will select the first card from the Deck' do
       expect(drawn_card).to eq("ace of diamonds")
     end
+
+    #test order of cards (make sure it is sorted)
 
     it 'removes first card from deck' do 
       expect(new_deck.cards.include?(drawn_card)).to be(false)
@@ -51,6 +55,7 @@ RSpec.describe Deck do
       shuffled_deck.shuffle_deck
       expect(shuffled_deck.cards).to match_array(unshuffled_deck)
       expect(shuffled_deck.cards).not_to eq(unshuffled_deck)
+      #look into seed for randomness (dependency injection)
     end
   end
 end
