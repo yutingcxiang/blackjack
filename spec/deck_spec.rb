@@ -25,7 +25,7 @@ RSpec.describe Deck do
 
   let(:drawn_card) { new_deck.draw_card }
 
-  describe '.draw_card' do
+  describe '#draw_card' do
     it 'will select the first card from the Deck' do
       expect(drawn_card).to eq("ace of diamonds")
     end
@@ -44,7 +44,7 @@ RSpec.describe Deck do
     end
   end
 
-  describe '.shuffle_deck' do
+  describe '#shuffle_deck' do
     it 'will randomize the cards in the Deck' do
       shuffled_deck = Deck.new
       unshuffled_deck = shuffled_deck.cards.dup
