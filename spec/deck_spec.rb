@@ -34,5 +34,15 @@ RSpec.describe Deck do
       expect(new_deck.cards.include?(drawn_card)).to be(false)
       expect(new_deck.cards.count).to be(51)
     end
+
+    it 'does not return card if Deck is empty' do
+      empty_deck = Deck.new
+      while empty_deck.cards.count > 0 do
+        empty_deck.draw
+      end
+
+      expect(empty_deck.draw).to eq("Deck empty - no more cards to draw")
+    end
   end
+
 end

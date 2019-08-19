@@ -15,13 +15,14 @@ class Deck
   end
 
   def draw
-    first_card = @cards[0]
-    @cards.shift()
-    return "#{first_card.value} of #{first_card.suit}"
+    if @cards.count == 0 
+      return "Deck empty - no more cards to draw"
+    else
+      first_card = @cards[0]
+      @cards.shift()
+      return "#{first_card.value} of #{first_card.suit}"
+    end
   end
-
-  # def undraw
-  # end
 
   # def shuffle
   # end
