@@ -14,16 +14,18 @@ class Deck
     end
   end
 
-  def draw
+  def draw_card
     if @cards.count == 0 
-      return "Deck empty - no more cards to draw"
+      return "Deck empty - no more cards to draw."
     else
       first_card = @cards[0]
-      @cards.shift()
+      @cards.shift
       return "#{first_card.value} of #{first_card.suit}"
     end
   end
 
-  # def shuffle
-  # end
+  def shuffle_deck
+    @cards.shuffle!
+    return "Deck shuffled."
+  end
 end

@@ -23,9 +23,9 @@ RSpec.describe Deck do
     end
   end
 
-  let(:drawn_card) { new_deck.draw }
+  let(:drawn_card) { new_deck.draw_card }
 
-  describe '.draw' do
+  describe '.draw_card' do
     it 'will select the first card from the Deck' do
       expect(drawn_card).to eq("ace of diamonds")
     end
@@ -38,10 +38,19 @@ RSpec.describe Deck do
     it 'does not return card if Deck is empty' do
       empty_deck = Deck.new
       while empty_deck.cards.count > 0 do
-        empty_deck.draw
+        empty_deck.draw_card
       end
+      expect(empty_deck.draw_card).to eq("Deck empty - no more cards to draw.")
+    end
+  end
 
-      expect(empty_deck.draw).to eq("Deck empty - no more cards to draw")
+  describe '.shuffle_deck' do
+    it 'will randomize the cards in the Deck' do
+      shuffled_deck = Deck.new
+      unshuffled_deck = shuffled_deck.cards.dup
+      shuffled_deck.shuffle_deck
+      expect(shuffled_deck.cards).to match_array(unshuffled_deck)
+      expect(shuffled_deck.cards).not_to eq(unshuffled_deck)
     end
   end
 
