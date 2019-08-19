@@ -2,7 +2,7 @@ require 'rspec'
 require_relative '../lib/card.rb'
 
 RSpec.describe Card do
-  let(:first_card) { Card.new('spades', 3) }
+  let(:first_card) { Card.new('spades', '3') }
 
   context 'when first card is initialized' do
     it 'will have a suit of spades' do
@@ -10,7 +10,7 @@ RSpec.describe Card do
     end
 
     it 'will have a value of 3' do
-      expect(first_card.value).to eq(3)
+      expect(first_card.value).to eq('3')
     end
   end
 

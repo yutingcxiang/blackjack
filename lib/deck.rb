@@ -1,7 +1,22 @@
 class Deck
-    def shuffle
-    end
+  SUITS = %w[diamonds hearts spades clubs].freeze
+  VALUES = %w[ace 2 3 4 5 6 7 8 9 10 jack queen king].freeze
 
-    def draw
+  attr_accessor :cards
+
+  def initialize
+    @cards = []
+    for suit in SUITS do
+        for value in VALUES do
+            card = "#{value} of #{suit}"
+            @cards << card
+        end
     end
+  end
+
+  # def shuffle
+  # end
+
+  # def draw
+  # end
 end
