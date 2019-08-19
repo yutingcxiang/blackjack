@@ -7,6 +7,6 @@ class Card
   end
 
   def read
-    puts "#{value} of #{suit}"
+    return "#{value} of #{suit}"
   end
 end

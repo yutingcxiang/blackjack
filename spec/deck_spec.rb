@@ -22,4 +22,17 @@ RSpec.describe Deck do
       expect(new_deck_values.uniq.count).to eq(13) 
     end
   end
+
+  let(:drawn_card) { new_deck.draw }
+
+  describe '.draw' do
+    it 'will select the first card from the Deck' do
+      expect(drawn_card).to eq("ace of diamonds")
+    end
+
+    it 'removes first card from deck' do 
+      expect(new_deck.cards.include?(drawn_card)).to be(false)
+      expect(new_deck.cards.count).to be(51)
+    end
+  end
 end
