@@ -4,5 +4,4 @@ class Deck
 
     def draw
     end
-
 end
