@@ -8,7 +8,7 @@ class Deck
     @cards = []
     for suit in SUITS do
         for value in VALUES do
-            card = "#{value} of #{suit}"
+            card = Card.new(suit, value)
             @cards << card
         end
     end
