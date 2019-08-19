@@ -8,7 +8,7 @@ RSpec.describe Deck do
 
   context 'when Deck is initialized' do
     it 'will have 52 cards' do
-      expect(new_deck.cards.count).to eq(52)
+      expect(new_deck.num_cards).to eq(52)
     end
 
     it 'will contain all 4 suits' do
@@ -32,7 +32,7 @@ RSpec.describe Deck do
 
     it 'removes first card from deck' do 
       expect(new_deck.cards.include?(drawn_card)).to be(false)
-      expect(new_deck.cards.count).to be(51)
+      expect(new_deck.num_cards).to be(51)
     end
 
     it 'does not return card if Deck is empty' do
@@ -53,5 +53,4 @@ RSpec.describe Deck do
       expect(shuffled_deck.cards).not_to eq(unshuffled_deck)
     end
   end
-
 end

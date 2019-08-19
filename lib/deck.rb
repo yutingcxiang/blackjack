@@ -14,6 +14,10 @@ class Deck
     end
   end
 
+  def num_cards
+    return @num_cards = @cards.count
+  end
+
   def draw_card
     if @cards.count == 0 
       return "Deck empty - no more cards to draw."
