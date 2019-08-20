@@ -24,7 +24,7 @@ class Deck
     else
       first_card = @cards[0]
       @cards.shift
-      return "#{first_card.value} of #{first_card.suit}"
+      return first_card
     end
   end
 

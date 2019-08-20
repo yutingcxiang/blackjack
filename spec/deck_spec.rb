@@ -46,7 +46,7 @@ RSpec.describe Deck do
 
   describe '#draw_card' do
     it 'will select the first card from the Deck' do
-      expect(drawn_card).to eql("ace of diamonds")
+      expect(drawn_card.read).to eql("ace of diamonds")
     end
 
     it 'removes first card from deck' do 
