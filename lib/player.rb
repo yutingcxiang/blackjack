@@ -12,4 +12,12 @@ class Player
     @hand << card
     return @hand
   end
+
+  def show_hand
+    held_cards = "|"
+    for card in @hand
+      held_cards += " #{card.read} |"
+    end
+    return held_cards
+  end
 end
