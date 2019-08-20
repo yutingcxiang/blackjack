@@ -28,8 +28,8 @@ class Deck
     end
   end
 
-  def shuffle(times)
-    @cards.shuffle!(random: Random.new(times))
+  def shuffle
+    @cards.shuffle!
     return @cards
   end
 end
