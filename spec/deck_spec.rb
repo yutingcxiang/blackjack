@@ -42,24 +42,24 @@ RSpec.describe Deck do
     end
   end
 
-  let(:drawn_card) { new_deck.draw }
+  let(:dealt_card) { new_deck.deal }
 
-  describe '#draw_card' do
+  describe '#deal_card' do
     it 'will select the first card from the Deck' do
-      expect(drawn_card.read).to eql("A of Diamonds")
+      expect(dealt_card.read).to eql("A of Diamonds")
     end
 
     it 'removes first card from deck' do 
-      expect(new_deck.cards.include?(drawn_card)).to be(false)
+      expect(new_deck.cards.include?(dealt_card)).to be(false)
       expect(new_deck.num_cards).to be(51)
     end
 
     it 'does not return card if Deck is empty' do
       empty_deck = Deck.new
       while empty_deck.cards.count > 0 do
-        empty_deck.draw
+        empty_deck.deal
       end
-      expect(empty_deck.draw).to eql("Deck empty - no more cards to draw.")
+      expect(empty_deck.deal).to eql("Deck empty - no more cards to draw.")
       expect(empty_deck.num_cards).to be(0)
     end
   end

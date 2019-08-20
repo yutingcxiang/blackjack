@@ -5,8 +5,8 @@ require_relative "../lib/deck.rb"
 RSpec.describe 'Player' do
   let(:new_player) { Player.new }
   let(:new_deck) { Deck.new }
-  let(:card1) { new_deck.draw }
-  let(:card2) { new_deck.draw }
+  let(:card1) { new_deck.deal }
+  let(:card2) { new_deck.deal }
 
   context 'when new player is created' do
     it "will have an empty hand" do
