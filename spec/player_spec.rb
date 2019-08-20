@@ -22,24 +22,24 @@ RSpec.describe 'Player' do
     end
   end
 
-  describe '#add_card' do
-    it 'will add a card to the hand' do
-      new_player.add_card(card1)
+  describe '#draw_card' do
+    it 'will draw a card and add it to the hand' do
+      new_player.draw_card(card1)
       expect(new_player.hand.count).to eql(1)
     end
 
-    it 'will add two cards to the hand' do
-      new_player.add_card(card1)
-      new_player.add_card(card2)
+    it 'will draw two cards and add them to the hand' do
+      new_player.draw_card(card1)
+      new_player.draw_card(card2)
       expect(new_player.hand.count).to eql(2)
     end
   end
 
   describe '#show_hand' do
     it 'displays the value of the cards in hand' do
-      new_player.add_card(card1)
-      new_player.add_card(card2) 
-      expect(new_player.show_hand).to eq("| ace of diamonds | 2 of diamonds |")
+      new_player.draw_card(card1)
+      new_player.draw_card(card2) 
+      expect(new_player.show_hand).to eq("| A of Diamonds | 2 of Diamonds |")
     end
   end
 end

@@ -1,6 +1,6 @@
 class Deck
-  SUITS = %w[diamonds clubs hearts spades].freeze
-  VALUES = %w[ace 2 3 4 5 6 7 8 9 10 jack queen king].freeze
+  SUITS = %w[Diamonds Clubs Hearts Spades]
+  VALUES = %w[A 2 3 4 5 6 7 8 9 10 J Q K]
 
   attr_accessor :cards
 

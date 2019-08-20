@@ -8,7 +8,7 @@ class Player
     @hand = []
   end
 
-  def add_card(card)
+  def draw_card(card)
     @hand << card
     return @hand
   end

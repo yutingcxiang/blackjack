@@ -13,15 +13,15 @@ RSpec.describe Deck do
 
     it 'will contain 4 suits' do
       expect(new_deck_suits.uniq.count).to eq(4)
-      expect(new_deck_suits).to include('diamonds')
-      expect(new_deck_suits).to include('hearts')
-      expect(new_deck_suits).to include('spades')
-      expect(new_deck_suits).to include('clubs')
+      expect(new_deck_suits).to include('Diamonds')
+      expect(new_deck_suits).to include('Hearts')
+      expect(new_deck_suits).to include('Spades')
+      expect(new_deck_suits).to include('Clubs')
     end
 
     it 'will contain 13 different values' do
       expect(new_deck_values.uniq.count).to eq(13) 
-      expect(new_deck_values).to include('ace')
+      expect(new_deck_values).to include('A')
       expect(new_deck_values).to include('2')
       expect(new_deck_values).to include('3')
       expect(new_deck_values).to include('4')
@@ -31,14 +31,14 @@ RSpec.describe Deck do
       expect(new_deck_values).to include('8')
       expect(new_deck_values).to include('9')
       expect(new_deck_values).to include('10')
-      expect(new_deck_values).to include('jack')
-      expect(new_deck_values).to include('queen')
-      expect(new_deck_values).to include('king')
+      expect(new_deck_values).to include('J')
+      expect(new_deck_values).to include('Q')
+      expect(new_deck_values).to include('K')
     end
 
     it 'will create an ordered deck' do
-      expect(new_deck.cards[0].read).to eql("ace of diamonds")
-      expect(new_deck.cards[-1].read).to eql("king of spades")
+      expect(new_deck.cards[0].read).to eql("A of Diamonds")
+      expect(new_deck.cards[-1].read).to eql("K of Spades")
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe Deck do
 
   describe '#draw_card' do
     it 'will select the first card from the Deck' do
-      expect(drawn_card.read).to eql("ace of diamonds")
+      expect(drawn_card.read).to eql("A of Diamonds")
     end
 
     it 'removes first card from deck' do 
