@@ -13,14 +13,25 @@ RSpec.describe 'Player' do
       expect(new_player.hand).to be_empty
     end
 
-    it 'will have a total of 0' do
-      expect(new_player.total).to be(0)
+    it 'will have a max of 0' do
+      expect(new_player.max).to be(0)
+    end
+
+    it 'will have a min of 0' do
+      expect(new_player.min).to be(0)
     end
   end
 
-  describe '#score' do
-    it 'will calculate the value of the hand' do
+  describe '#add_card' do
+    it 'will add a card to the hand' do
+      new_player.add_card(card1)
+      expect(new_player.hand.count).to eq(1)
+    end
+
+    it 'will add two cards to the hand' do
+      new_player.add_card(card1)
+      new_player.add_card(card2)
+      expect(new_player.hand.count).to eq(2)
     end
   end
-
 end

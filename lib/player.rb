@@ -1,8 +1,15 @@
 class Player
-  attr_reader :total, :hand
+  attr_reader :max, :min
+  attr_accessor :hand
 
   def initialize
-    @total = 0
+    @max = 0
+    @min = 0
     @hand = []
+  end
+
+  def add_card(card)
+    @hand << card
+    return @hand
   end
 end
