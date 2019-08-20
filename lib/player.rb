@@ -4,20 +4,47 @@ class Player
 
   def initialize
     @max = 0
-    @min = 0
     @hand = []
   end
 
-  def draw_card(card)
-    @hand << card
-    return @hand
+  def show_hand
+    if @hand.count == 0
+      return "No cards in hand."
+    else
+      held_cards = ""
+      for card in @hand
+        held_cards += "| #{card.read} |"
+      end
+      return held_cards
+    end
   end
 
-  def show_hand
-    held_cards = "|"
+  def calculate_hand
+    @max = 0
+    face_cards = %w[J Q K]
     for card in @hand
-      held_cards += " #{card.read} |"
+      if face_cards.include?(card.value)
+        @max += 10
+      elsif card.value == "A"
+        if @max + 11 <= 21
+          @max += 11
+        else
+          @max += 1
+        end
+      else
+        @max += card.value.to_i
+      end
     end
-    return held_cards
+    return @max
+  end
+
+  def hit(card)
+    @hand << card
+    self.calculate_hand
+    self.show_hand
+  end
+
+  def stand
+    return "Max value: #{self.max}"
   end
 end

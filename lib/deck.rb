@@ -8,7 +8,7 @@ class Deck
     @cards = []
     SUITS.each do |suit|
       VALUES.each do |value|
-        card = Card.new(suit, value)
+        card = Card.new(value, suit)
         @cards << card
       end
     end
