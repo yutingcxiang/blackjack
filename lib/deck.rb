@@ -18,7 +18,7 @@ class Deck
     return @num_cards = @cards.count
   end
 
-  def draw_card
+  def draw
     if @cards.count == 0 
       return "Deck empty - no more cards to draw."
     else
@@ -28,8 +28,8 @@ class Deck
     end
   end
 
-  def shuffle_deck
-    @cards.shuffle!
+  def shuffle(times)
+    @cards.shuffle!(random: Random.new(times))
     return "Deck shuffled."
   end
 end

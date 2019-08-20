@@ -11,28 +11,43 @@ RSpec.describe Deck do
       expect(new_deck.num_cards).to eq(52)
     end
 
-    it 'will contain all 4 suits' do
+    it 'will contain 4 suits' do
+      expect(new_deck_suits.uniq.count).to eq(4)
       expect(new_deck_suits).to include('diamonds')
       expect(new_deck_suits).to include('hearts')
       expect(new_deck_suits).to include('spades')
       expect(new_deck_suits).to include('clubs')
-      #make sure no additional suits
     end
 
     it 'will contain 13 different values' do
       expect(new_deck_values.uniq.count).to eq(13) 
-      #check individual values
+      expect(new_deck_values).to include('ace')
+      expect(new_deck_values).to include('2')
+      expect(new_deck_values).to include('3')
+      expect(new_deck_values).to include('4')
+      expect(new_deck_values).to include('5')
+      expect(new_deck_values).to include('6')
+      expect(new_deck_values).to include('7')
+      expect(new_deck_values).to include('8')
+      expect(new_deck_values).to include('9')
+      expect(new_deck_values).to include('10')
+      expect(new_deck_values).to include('jack')
+      expect(new_deck_values).to include('queen')
+      expect(new_deck_values).to include('king')
+    end
+
+    it 'will create an ordered deck' do
+      expect(new_deck.cards[0].read).to eq("ace of diamonds")
+      expect(new_deck.cards[-1].read).to eq("king of spades")
     end
   end
 
-  let(:drawn_card) { new_deck.draw_card }
+  let(:drawn_card) { new_deck.draw }
 
   describe '#draw_card' do
     it 'will select the first card from the Deck' do
       expect(drawn_card).to eq("ace of diamonds")
     end
-
-    #test order of cards (make sure it is sorted)
 
     it 'removes first card from deck' do 
       expect(new_deck.cards.include?(drawn_card)).to be(false)
@@ -42,20 +57,29 @@ RSpec.describe Deck do
     it 'does not return card if Deck is empty' do
       empty_deck = Deck.new
       while empty_deck.cards.count > 0 do
-        empty_deck.draw_card
+        empty_deck.draw
       end
-      expect(empty_deck.draw_card).to eq("Deck empty - no more cards to draw.")
+      expect(empty_deck.draw).to eq("Deck empty - no more cards to draw.")
+      expect(empty_deck.num_cards).to be(0)
     end
   end
 
   describe '#shuffle_deck' do
     it 'will randomize the cards in the Deck' do
-      shuffled_deck = Deck.new
-      unshuffled_deck = shuffled_deck.cards.dup
-      shuffled_deck.shuffle_deck
-      expect(shuffled_deck.cards).to match_array(unshuffled_deck)
-      expect(shuffled_deck.cards).not_to eq(unshuffled_deck)
-      #look into seed for randomness (dependency injection)
+      seed = 12
+      deck = Deck.new
+      original_deck = deck.cards.dup
+      deck.shuffle(seed)
+
+      expect(deck.cards).not_to eql(original_deck)
+      shuffled_deck = deck.cards.dup
+
+      new_seed = 3
+      deck.shuffle(new_seed)
+      expect(deck.cards).not_to eql(original_deck)
+      expect(deck.cards).not_to eql(shuffled_deck)
+
+      expect(shuffled_deck).to match_array(original_deck)
     end
   end
 end
