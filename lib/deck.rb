@@ -30,6 +30,6 @@ class Deck
 
   def shuffle(times)
     @cards.shuffle!(random: Random.new(times))
-    return "Deck shuffled."
+    return @cards
   end
 end

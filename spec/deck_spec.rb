@@ -65,20 +65,14 @@ RSpec.describe Deck do
   end
 
   describe '#shuffle_deck' do
+    let(:deck) { Deck.new }
+    let(:original_deck) { deck.cards.dup }
+    let(:shuffled_deck) { deck.shuffle(12) }
+    let(:reshuffled_deck) { deck.shuffle(3) }
+
     it 'will randomize the cards in the Deck' do
-      seed = 12
-      deck = Deck.new
-      original_deck = deck.cards.dup
-      deck.shuffle(seed)
-
-      expect(deck.cards).not_to eql(original_deck)
-      shuffled_deck = deck.cards.dup
-
-      new_seed = 3
-      deck.shuffle(new_seed)
-      expect(deck.cards).not_to eql(original_deck)
-      expect(deck.cards).not_to eql(shuffled_deck)
-
+      expect(original_deck).not_to eql(shuffled_deck)
+      expect(original_deck).not_to eql(reshuffled_deck)
       expect(shuffled_deck).to match_array(original_deck)
     end
   end
