@@ -15,5 +15,4 @@ RSpec.describe "Game" do
     #stand holds current hand
     #show_totals displays your hand and the dealer's hand
     #play_dealer draws cards until total is 17 or more
-    #score displays current game score
 end

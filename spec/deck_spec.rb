@@ -8,7 +8,7 @@ RSpec.describe Deck do
 
   context 'when Deck is initialized' do
     it 'will have 52 cards' do
-      expect(new_deck.num_cards).to eq(52)
+      expect(new_deck.num_cards).to eql(52)
     end
 
     it 'will contain 4 suits' do
@@ -37,8 +37,8 @@ RSpec.describe Deck do
     end
 
     it 'will create an ordered deck' do
-      expect(new_deck.cards[0].read).to eq("ace of diamonds")
-      expect(new_deck.cards[-1].read).to eq("king of spades")
+      expect(new_deck.cards[0].read).to eql("ace of diamonds")
+      expect(new_deck.cards[-1].read).to eql("king of spades")
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe Deck do
 
   describe '#draw_card' do
     it 'will select the first card from the Deck' do
-      expect(drawn_card).to eq("ace of diamonds")
+      expect(drawn_card).to eql("ace of diamonds")
     end
 
     it 'removes first card from deck' do 
@@ -59,7 +59,7 @@ RSpec.describe Deck do
       while empty_deck.cards.count > 0 do
         empty_deck.draw
       end
-      expect(empty_deck.draw).to eq("Deck empty - no more cards to draw.")
+      expect(empty_deck.draw).to eql("Deck empty - no more cards to draw.")
       expect(empty_deck.num_cards).to be(0)
     end
   end
