@@ -80,6 +80,8 @@ RSpec.describe Deck do
       expect(same_cards && !same_order).to be(true)
     end
 
+    let(:reshuffled_deck) { new_deck.shuffle }
+
     it 'will have different cards each time' do
       shuffled_deck_cards = shuffled_deck.dup 
       reshuffled_deck_cards = new_deck.shuffle
