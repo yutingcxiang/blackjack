@@ -65,17 +65,10 @@ RSpec.describe Deck do
   end
 
   describe '#shuffle_deck' do
-    let(:deck) { Deck.new }
-    let(:original_deck) { deck.cards.dup }
-    let(:shuffled_deck) { deck.shuffle }
+    let(:original_deck) { new_deck.cards.dup }
+    let(:shuffled_deck) { new_deck.shuffle }
 
     it 'will randomize the cards in the Deck' do
-      # decks have cards [Card]
-      # cards have suit, value
-      # original_deck
-      # shuffled_deck is different from original_deck
-      # reshuffled_deck is different from both
-
       # it has the same cards && the cards are in a different order
       # same_cards && different_order
       same_order = original_deck == shuffled_deck
@@ -84,10 +77,13 @@ RSpec.describe Deck do
       shuffled_sorted_cards = shuffled_deck.sort
       same_cards = original_sorted_cards == shuffled_sorted_cards
 
-      expect(same_cards && !same_order).to eq true
-      
-      #expect(original_deck).not_to eql(reshuffled_deck)
-      #expect(shuffled_deck).to match_array(original_deck)
+      expect(same_cards && !same_order).to be(true)
+    end
+
+    it 'will have different cards each time' do
+      shuffled_deck_cards = shuffled_deck.dup 
+      reshuffled_deck_cards = new_deck.shuffle
+      expect(shuffled_deck_cards).not_to eq(reshuffled_deck_cards)
     end
   end
 end
