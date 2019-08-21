@@ -1,9 +1,14 @@
 require 'rspec'
-require "../lib/dealer.rb"
+require_relative "../lib/dealer.rb"
+require_relative "../lib/player.rb"
 
 RSpec.describe 'Dealer' do
+  let!(:new_player) { Player.new }
+  let!(:new_dealer) { Dealer.new }
+
   context 'when dealer is initialized' do
     it 'is a subclass of Player' do
+      expect(Dealer).to be < Player
     end
   end
 
