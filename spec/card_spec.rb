@@ -29,7 +29,7 @@ RSpec.describe Card do
   describe '#read' do
     it 'prints card value and suit' do
       # expect { second_card.read }.to output("king of diamonds\n").to_stdout
-      expect(second_card.read).to eql("K of Diamonds")
+      expect(second_card.read).to eql("| K of Diamonds |")
     end
   end
 end

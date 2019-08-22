@@ -42,13 +42,13 @@ RSpec.describe 'Dealer' do
 
   describe 'show_hand' do
     it 'will only display the first card in hand' do
-      expect(new_dealer.hand[0]).to eql(nil)
+      expect(new_dealer.show_hand).to eql("No cards in hand.")
       new_dealer.hit(j_hearts)
-      expect(new_dealer.hand[0]).to eq(j_hearts)
+      expect(new_dealer.show_hand).to eq(j_hearts.read)
       new_dealer.hit(a_diamonds)
-      expect(new_dealer.hand[0]).to eq(j_hearts)
+      expect(new_dealer.show_hand).to eq(j_hearts.read)
       new_dealer.hit(six_clubs)
-      expect(new_dealer.hand[0]).to eq(j_hearts)
+      expect(new_dealer.show_hand).to eq(j_hearts.read)
     end
   end
 end

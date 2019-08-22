@@ -7,7 +7,7 @@ class Card
   end
 
   def read
-    return "#{value} of #{suit}"
+    return "| #{value} of #{suit} |"
   end
 
   def <=>(other)

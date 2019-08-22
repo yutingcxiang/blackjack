@@ -12,7 +12,7 @@ class Player
     else
       held_cards = ""
       for card in @hand
-        held_cards += "| #{card.read} |"
+        held_cards += "#{card.read}"
       end
       return held_cards
     end

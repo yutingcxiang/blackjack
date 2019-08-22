@@ -37,8 +37,8 @@ RSpec.describe Deck do
     end
 
     it 'will create an ordered deck' do
-      expect(new_deck.cards[0].read).to eql("A of Diamonds")
-      expect(new_deck.cards[-1].read).to eql("K of Spades")
+      expect(new_deck.cards[0].read).to eql("| A of Diamonds |")
+      expect(new_deck.cards[-1].read).to eql("| K of Spades |")
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe Deck do
 
   describe '#deal_card' do
     it 'will select the first card from the Deck' do
-      expect(dealt_card.read).to eql("A of Diamonds")
+      expect(dealt_card.read).to eql("| A of Diamonds |")
     end
 
     it 'removes first card from deck' do 
