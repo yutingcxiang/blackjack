@@ -86,6 +86,7 @@ RSpec.describe Deck do
       shuffled_deck_cards = shuffled_deck.dup 
       reshuffled_deck_cards = new_deck.shuffle
       expect(shuffled_deck_cards).not_to eq(reshuffled_deck_cards)
+      expect(shuffled_deck_cards).not_to eq(original_deck)
     end
   end
 end

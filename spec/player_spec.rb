@@ -18,7 +18,7 @@ RSpec.describe 'Player' do
     end
 
     it 'will have a max of 0' do
-      expect(new_player.max).to be(0)
+      expect(new_player.calculate_hand).to be(0)
     end
   end
 

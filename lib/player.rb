@@ -1,5 +1,4 @@
 class Player
-  attr_reader :max
   attr_accessor :hand
 
   def initialize
@@ -45,6 +44,6 @@ class Player
   end
 
   def stand
-    return "Max value: #{self.max}"
+    return "Max value: #{@max}"
   end
 end
