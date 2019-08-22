@@ -19,6 +19,10 @@ class Player
     end
   end
 
+  def num_cards
+    return @hand.count
+  end
+
   def calculate_hand
     @max = 0
     face_cards = %w[J Q K]

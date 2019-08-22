@@ -89,4 +89,13 @@ RSpec.describe Deck do
       expect(shuffled_deck_cards).not_to eq(original_deck)
     end
   end
+
+  describe 'reset' do
+    let(:original_deck) { new_deck.cards.dup }
+
+    it 'will reset the order of the cards to the initial order' do
+      new_deck.shuffle
+      expect(new_deck.reset).to eq(original_deck)
+    end
+  end
 end

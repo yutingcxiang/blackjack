@@ -32,4 +32,9 @@ class Deck
     @cards.shuffle!
     return @cards
   end
+
+  def reset
+    @cards.sort
+    return @cards
+  end
 end

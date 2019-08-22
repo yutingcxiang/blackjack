@@ -43,6 +43,16 @@ RSpec.describe 'Player' do
     end
   end
 
+  describe '#num_cards' do
+    it 'displays the number of cards a player has in hand' do
+      expect(new_player.num_cards).to eql(0)
+      new_player.hit(a_diamonds)
+      expect(new_player.num_cards).to eql(1)
+      new_player.hit(three_hearts)
+      expect(new_player.num_cards).to eql(2)
+    end
+  end
+
   describe '#show_hand' do
     it 'displays the value of the cards in hand' do
       expect(new_player.show_hand).to eql("No cards in hand.")
