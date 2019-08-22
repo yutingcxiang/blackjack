@@ -15,6 +15,7 @@ RSpec.describe 'Player' do
   context 'when new player is created' do
     it "will have an empty hand" do
       expect(new_player.hand).to be_empty
+      expect(new_player.show_hand).to eql("No cards in hand.")
     end
 
     it 'will have a max of 0' do
@@ -66,27 +67,27 @@ RSpec.describe 'Player' do
   describe 'calculate_hand' do
     context 'sums the total value of the cards in hand' do
       it 'correctly sums the value of face cards' do
-        expect(new_player.calculate_hand).to eq(0)
+        expect(new_player.calculate_hand).to eql(0)
         new_player.hit(k_spades)
-        expect(new_player.calculate_hand).to eq(10) 
+        expect(new_player.calculate_hand).to eql(10) 
         new_player.hit(j_hearts)
-        expect(new_player.calculate_hand).to eq(20) 
+        expect(new_player.calculate_hand).to eql(20) 
       end
 
       it 'correctly sums the value of non-face cards' do
-        expect(new_player.calculate_hand).to eq(0)
+        expect(new_player.calculate_hand).to eql(0)
         new_player.hit(three_hearts)
-        expect(new_player.calculate_hand).to eq(3) 
+        expect(new_player.calculate_hand).to eql(3) 
         new_player.hit(five_clubs)
-        expect(new_player.calculate_hand).to eq(8) 
+        expect(new_player.calculate_hand).to eql(8) 
       end
 
       it 'correctly sums the value of ace cards' do
-        expect(new_player.calculate_hand).to eq(0)
+        expect(new_player.calculate_hand).to eql(0)
         new_player.hit(a_diamonds)
-        expect(new_player.calculate_hand).to eq(11) 
+        expect(new_player.calculate_hand).to eql(11) 
         new_player.hit(a_hearts)
-        expect(new_player.calculate_hand).to eq(12) 
+        expect(new_player.calculate_hand).to eql(12) 
       end
     end
   end

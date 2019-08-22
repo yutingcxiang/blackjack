@@ -15,10 +15,6 @@ RSpec.describe "Game" do
     let(:dealer) { Dealer.new }
     let(:player) { Player.new }
 
-    it 'starts with a brand new deck' do
-      expect(shuffled_deck).not_to eq(unshuffled_deck)
-    end
-
     it 'initializes both player and dealer with 0 points' do
       expect(player.calculate_hand).to eql(0)
       expect(dealer.calculate_hand).to eql(0)
@@ -28,7 +24,5 @@ RSpec.describe "Game" do
       expect(player.num_cards).to eql(0)
       expect(dealer.num_cards).to eql(0)
     end
-
-    #displays dealer's card
   end
 end

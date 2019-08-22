@@ -39,4 +39,16 @@ RSpec.describe 'Dealer' do
       expect(new_dealer.calculate_hand).to eql(18)
     end
   end
+
+  describe 'show_hand' do
+    it 'will only display the first card in hand' do
+      expect(new_dealer.hand[0]).to eql(nil)
+      new_dealer.hit(j_hearts)
+      expect(new_dealer.hand[0]).to eq(j_hearts)
+      new_dealer.hit(a_diamonds)
+      expect(new_dealer.hand[0]).to eq(j_hearts)
+      new_dealer.hit(six_clubs)
+      expect(new_dealer.hand[0]).to eq(j_hearts)
+    end
+  end
 end
