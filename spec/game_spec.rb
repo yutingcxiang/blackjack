@@ -20,6 +20,14 @@ RSpec.describe "Game" do
     it 'initializes a new dealer' do
       expect(new_game.dealer).to be_an_instance_of Dealer
     end
+
+    it 'initializes with the dealer as current player' do
+      expect(new_game.current_player).to eql('Dealer')
+    end
+
+    it 'initializes with the game as not over' do
+      expect(new_game.game_over).to be false
+    end
   end
 
   describe '#setup' do
@@ -35,7 +43,33 @@ RSpec.describe "Game" do
     end
   end
 
-    # game_over? -> t/f
-    # next_turn?
-    # current_player
+  describe '#start_game' do
+  end
+
+  describe '#game_over?' do
+    it 'will end the game if the player or dealer has 21 points' do
+    end
+
+    it 'will end the game if both player and dealer stand on the same turn' do
+    end
+
+    it 'continues game if the player and dealer have less than 21 points each' do
+    end
+  end
+
+  describe '#end_game' do
+    #close out application
+  end
+
+  describe '#player_turn' do
+    #ask player for input
+  end
+
+  describe '#dealer_turn' do
+    #automatically plays for dealer
+  end
+
+  describe '#play_game' do
+    #switches current_player, checks game_over?, ends game with end_game
+  end
 end

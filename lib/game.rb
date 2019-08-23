@@ -1,10 +1,13 @@
 class Game
   attr_accessor :deck, :player, :dealer
+  attr_reader :current_player, :game_over
 
   def initialize
     @deck = Deck.new
     @player = Player.new
     @dealer = Dealer.new
+    @current_player = 'Dealer'
+    @game_over = FALSE
   end
 
   def setup

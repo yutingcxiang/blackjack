@@ -1,5 +1,6 @@
 class Player
-  attr_reader :max, :hand
+  attr_reader :max
+  attr_accessor :hand
 
   def initialize
     @max = 0
