@@ -23,4 +23,9 @@ class Game
     card4 = @deck.deal
     @dealer.hit(card4)
   end
+
+  def player_turn
+    puts "What would you like to do?\nHit | Stand | Quit\n"
+    user_input = gets.chomp
+  end
 end

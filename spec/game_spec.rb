@@ -62,7 +62,14 @@ RSpec.describe "Game" do
   end
 
   describe '#player_turn' do
+    before do
+      allow(new_game).to receive(:gets).and_return("Hit\n")
+    end
     #ask player for input
+    it 'asks the player for input' do
+      expect { new_game.player_turn }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
+      expect(new_game.player_turn).to eq("Hit")
+    end
   end
 
   describe '#dealer_turn' do
