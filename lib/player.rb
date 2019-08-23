@@ -45,7 +45,7 @@ class Player
   def hit(card)
     @hand << card
     self.calculate_hand
-    self.show_hand
+    # self.show_hand
   end
 
   def stand

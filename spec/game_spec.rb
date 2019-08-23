@@ -63,12 +63,30 @@ RSpec.describe "Game" do
 
   describe '#player_turn' do
     before do
-      allow(new_game).to receive(:gets).and_return("Hit\n")
+      allow(new_game).to receive(:gets).and_return("Hit", "Stand", "Quit", "dsfgsdgfs")
     end
-    #ask player for input
+
     it 'asks the player for input' do
       expect { new_game.player_turn }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
-      expect(new_game.player_turn).to eq("Hit")
+    end
+
+    it 'will give the player another card if Hit is chosen' do
+      expect(new_game.player).to receive(:hit).and_return("Hit")
+      new_game.player_turn
+      expect(new_game.player.num_cards).not_to eql(0)
+    end
+
+    # it 'will show the max if Stand is chosen' do
+    #   expect(new_game.player).to receive(:stand)
+    #   new_game.player_turn
+    # end
+
+    # it 'will quit the game if Quit is chosen' do
+    #   expect(new_game).to receive(:end_game)
+    #   new_game.player_turn
+    # end
+
+    it 'will prompt player for another input if choice is invalid' do
     end
   end
 

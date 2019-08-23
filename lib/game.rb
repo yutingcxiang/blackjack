@@ -1,3 +1,9 @@
+require_relative './card.rb'
+require_relative './deck.rb'
+require_relative './player.rb'
+require_relative './dealer.rb'
+require 'pry'
+
 class Game
   attr_accessor :deck, :player, :dealer
   attr_reader :current_player, :game_over
@@ -26,6 +32,13 @@ class Game
 
   def player_turn
     puts "What would you like to do?\nHit | Stand | Quit\n"
-    user_input = gets.chomp
+    player_input = gets.chomp
+    
+    if player_input == "Hit"
+      new_card = @deck.deal
+      @player.hit(new_card)
+    end
   end
 end
+
+# binding.pry
