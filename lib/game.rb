@@ -2,7 +2,7 @@ require_relative './card.rb'
 require_relative './deck.rb'
 require_relative './player.rb'
 require_relative './dealer.rb'
-require 'pry'
+# require 'pry'
 
 class Game
   attr_accessor :deck, :player, :dealer
@@ -30,14 +30,24 @@ class Game
     @dealer.hit(card4)
   end
 
-  def player_turn
+  # def player_turn
+  #   puts "What would you like to do?\nHit | Stand | Quit\n"
+  #   player_input = gets.chomp
+    
+  #   if player_input == "Hit"
+  #     new_card = @deck.deal
+  #     @player.hit(new_card)
+  #     return "Hit"
+  #   elsif player_input == "Stand"
+  #     @player.stand
+  #     return "Stand"
+  #   end
+  # end
+
+  def get_choice
     puts "What would you like to do?\nHit | Stand | Quit\n"
     player_input = gets.chomp
-    
-    if player_input == "Hit"
-      new_card = @deck.deal
-      @player.hit(new_card)
-    end
+    return player_input
   end
 end
 

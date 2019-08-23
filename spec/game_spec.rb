@@ -61,32 +61,56 @@ RSpec.describe "Game" do
     #close out application
   end
 
-  describe '#player_turn' do
+  # describe '#player_turn' do
+  #   it 'asks the player for input' do
+  #     new_game.player_turn
+  #     expect { new_game.player_turn }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
+  #   end
+
+  #   before do
+  #     allow(new_game).to receive(:gets).and_return("Hit", "Stand", "Quit", "dsfgsdgfs")
+  #   end
+
+  #   it 'will give the player another card if Hit is chosen' do
+  #     new_game.player_turn
+  #     expect(new_game.player_turn).to eql("Hit")
+  #     expect(new_game.player.num_cards).not_to eql(0)
+  #     expect(new_game.player.calculate_hand).not_to eql(0)
+  #   end
+
+  #   it 'will not give the player another card if Stand is chosen' do
+  #     # new_game.player_turn
+  #     expect(new_game.player_turn).to eql("Stand")
+  #     expect(new_game.player.num_cards).to eql(1)
+  #   end
+
+  #   it 'will quit the game if Quit is chosen' do
+  #     new_game.player_turn
+  #   end
+
+  #   it 'will prompt player for another input if choice is invalid' do
+  #   end
+  # end
+
+  describe '#get_choice' do
     before do
       allow(new_game).to receive(:gets).and_return("Hit", "Stand", "Quit", "dsfgsdgfs")
     end
 
     it 'asks the player for input' do
-      expect { new_game.player_turn }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
+      expect { new_game.get_choice }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
     end
 
-    it 'will give the player another card if Hit is chosen' do
-      expect(new_game.player).to receive(:hit).and_return("Hit")
-      new_game.player_turn
-      expect(new_game.player.num_cards).not_to eql(0)
+    it 'received Hit from player' do
+      choice = new_game.get_choice
+      expect(choice).to eq('Hit')
+      choice = new_game.get_choice
+      expect(choice).to eq('Stand')
+      choice = new_game.get_choice
+      expect(choice).to eq('Quit')
     end
 
-    # it 'will show the max if Stand is chosen' do
-    #   expect(new_game.player).to receive(:stand)
-    #   new_game.player_turn
-    # end
-
-    # it 'will quit the game if Quit is chosen' do
-    #   expect(new_game).to receive(:end_game)
-    #   new_game.player_turn
-    # end
-
-    it 'will prompt player for another input if choice is invalid' do
+    it 'handles invalid input' do
     end
   end
 
