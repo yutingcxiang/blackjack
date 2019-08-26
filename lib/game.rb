@@ -60,25 +60,33 @@ class Game
     @current_player = @current_player == "Dealer's" ? 'Your' : "Dealer's"
   end
 
-  def winner(player)
-    if player == "Tie" 
-      puts "Tie game!"
-    elsif player == 'You'
-      puts "You win!"
-    else
-      puts "Dealer wins!"
-    end
-  end
-
-  # def play_game
-  #   if @player.calculate_hand == @dealer.calculate_hand
-  #     puts "Tie game!" 
-  #   elsif @player.calculate_hand > @dealer.calculate_hand
+  # def winner(player)
+  #   if player == "Tie" 
+  #     puts "Tie game!"
+  #   elsif player == 'You'
   #     puts "You win!"
-  #   else
+  #   elsif player == "Dealer"
   #     puts "Dealer wins!"
   #   end
   # end
+
+  def play_game
+    if @player.calculate_hand == 21 and @dealer.calculate_hand == 21
+      puts "Tie game!"
+    elsif @player.calculate_hand == 21
+      puts "You win!"
+    elsif @dealer.calculate_hand == 21
+      puts "Dealer wins!"
+    elsif @dealer.calculate_hand > 21
+      puts "You win!"
+    elsif @player.calculate_hand > 21
+      puts "Dealer wins!"
+    elsif @player.calculate_hand > @dealer.calculate_hand
+      puts "You win!"
+    elsif @player.calculate_hand < @dealer.calculate_hand
+      puts "Dealer wins!"
+    end
+  end
 
 end
 

@@ -118,69 +118,123 @@ RSpec.describe "Game" do
 
       it `switches to dealer's turn` do
         expect(new_game.current_player).to eql("Dealer's")
-    end
-
-    end
-  end
-
-  describe '#winner' do
-    context 'Tie game' do
-      it 'prints Tie game!' do
-      expect{new_game.winner('Tie')}.to output("Tie game!\n").to_stdout
-      end
-    end
-
-    context 'dealer is winner' do
-      it 'prints dealer wins' do
-        expect{new_game.winner('Dealer')}.to output("Dealer wins!\n").to_stdout
-      end
-    end
-
-    context 'player is winner' do
-      it 'prints you win' do
-        expect{new_game.winner('You')}.to output("You win!\n").to_stdout
       end
     end
   end
+
+  # describe '#winner' do
+  #   context 'Tie game' do
+  #     it 'prints Tie game!' do
+  #       expect{new_game.winner('Tie')}.to output("Tie game!\n").to_stdout
+  #     end
+  #   end
+
+  #   context 'dealer is winner' do
+  #     it 'prints dealer wins' do
+  #       expect{new_game.winner('Dealer')}.to output("Dealer wins!\n").to_stdout
+  #     end
+  #   end
+
+  #   context 'player is winner' do
+  #     it 'prints you win' do
+  #       expect{new_game.winner('You')}.to output("You win!\n").to_stdout
+  #     end
+  #   end
+  # end
 
   describe '#play_game' do
-    before :each do
-      new_game.player.hit(a_diamonds)
-      new_game.player.hit(k_spades)
-    end
-
     describe "check for victory conditions" do
       context 'player has a score of 21' do
+        before do
+          new_game.player.hit(a_diamonds)
+          new_game.player.hit(k_spades)
+        end
         it 'ends the game' do
-
+          expect(new_game.player.calculate_hand).to eq(21)
+          expect{new_game.play_game}.to output("You win!\n").to_stdout
         end
       end
 
       context 'dealer has a score of 21' do
+        before do
+          new_game.dealer.hit(a_diamonds)
+          new_game.dealer.hit(k_spades)
+        end
         it 'ends the game' do
-          #end game
+          expect(new_game.dealer.calculate_hand).to eq(21)
+          expect{new_game.play_game}.to output("Dealer wins!\n").to_stdout
+        end
+      end
+
+      context 'both dealer and player have scores of 21' do
+        before do
+          new_game.dealer.hit(a_diamonds)
+          new_game.dealer.hit(k_spades)
+          new_game.player.hit(a_diamonds)
+          new_game.player.hit(k_spades)
+        end
+        it 'ends the game' do
+          expect(new_game.dealer.calculate_hand).to eq(21)
+          expect(new_game.player.calculate_hand).to eq(21)
+          expect{new_game.play_game}.to output("Tie game!\n").to_stdout
         end
       end
       
       context 'if player has busted' do
+        before do
+          new_game.player.hit(j_hearts)
+          new_game.player.hit(k_spades)
+          new_game.player.hit(five_clubs)
+        end
         it 'ends the game with dealer as winner' do
+          expect(new_game.player.calculate_hand).to eq(25)
+          expect{new_game.play_game}.to output("Dealer wins!\n").to_stdout
         end
       end
 
       context 'if dealer has busted' do
-        it 'ends the game with player as winner' do
+        before do
+          new_game.dealer.hit(j_hearts)
+          new_game.dealer.hit(k_spades)
+          new_game.dealer.hit(five_clubs)
+        end
+        it 'ends the game with dealer as winner' do
+          expect(new_game.dealer.calculate_hand).to eq(25)
+          expect{new_game.play_game}.to output("You win!\n").to_stdout
         end
       end
 
-      context 'both player or dealer is standing' do
-        context 'dealer has a higher score' do
-          it 'ends the game with dealer as winner' do
-          end
-        end
+      # context 'both player or dealer is standing' do
+      #   context 'dealer has a higher score' do
+      #     it 'ends the game with dealer as winner' do
+      #     end
+      #   end
 
-        context 'player has a higher score' do
-          it 'ends the game with player as winner' do
-          end
+      context 'player has a higher score' do
+        before do
+          new_game.player.hit(j_hearts)
+          new_game.player.hit(k_spades)
+          new_game.dealer.hit(five_clubs)
+          new_game.dealer.hit(three_hearts)
+        end
+        it 'ends the game with player as winner' do
+          expect(new_game.player.calculate_hand).to eq(20)
+          expect(new_game.dealer.calculate_hand).to eq(8)
+          expect{new_game.play_game}.to output("You win!\n").to_stdout
+        end
+      end
+
+      context 'dealer has a higher score' do
+        before do
+          new_game.dealer.hit(j_hearts)
+          new_game.dealer.hit(k_spades)
+          new_game.player.hit(five_clubs)
+          new_game.player.hit(three_hearts)
+        end
+        it 'ends the game with dealer as winner' do
+          expect(new_game.dealer.calculate_hand).to eq(20)
+          expect(new_game.player.calculate_hand).to eq(8)
+          expect{new_game.play_game}.to output("Dealer wins!\n").to_stdout
         end
       end
     end
@@ -192,5 +246,6 @@ RSpec.describe "Game" do
       context "human player's turn" do
       end
     end
+
   end
 end
