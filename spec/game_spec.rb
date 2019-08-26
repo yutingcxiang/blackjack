@@ -43,23 +43,10 @@ RSpec.describe "Game" do
     end
   end
 
-  describe '#start_game' do
-  end
-
-  describe '#game_over?' do
-    it 'will end the game if the player or dealer has 21 points' do
-    end
-
-    it 'will end the game if both player and dealer stand on the same turn' do
-    end
-
-    it 'continues game if the player and dealer have less than 21 points each' do
-    end
-  end
-
   describe '#quit_game' do
     it 'will end the game' do
       new_game.quit_game
+      expect(new_game.game_over).to be true
       expect { new_game.quit_game }.to output("Game Over.\n").to_stdout
     end
   end
@@ -79,10 +66,12 @@ RSpec.describe "Game" do
 
     it 'will quit the game if Quit is chosen' do
       new_game.player_turn("Quit")
-      expect { new_game.quit_game }.to output("Game Over.\n").to_stdout
+      expect(new_game.game_over).to be true
     end
 
     it 'will prompt player for another input if choice is invalid' do
+      expect(new_game).to receive(:get_choice)
+      new_game.player_turn("What?")
     end
   end
 
@@ -103,11 +92,41 @@ RSpec.describe "Game" do
     end
   end
 
-  describe '#dealer_turn' do
-    #automatically plays for dealer
+  describe '#switch_player' do
+    context 'if current player is dealer' do
+      before :each do
+        new_game.switch_player
+      end
+
+      it 'switches to human player' do
+        expect(new_game.current_player).to eql('Your')
+      end
+    end
+
+    context 'if you are the current player' do
+      before :each do
+        new_game.current_player = 'Your'
+        new_game.switch_player
+      end
+
+      it `switches to dealer's turn` do
+        expect(new_game.current_player).to eql('Dealer')
+    end
+
+    end
   end
 
   describe '#play_game' do
+
+    describe "each turn it calculates score for both players" do
+
+    end
+
     #switches current_player, checks game_over?, ends game with end_game
+    describe 'dealer will play on his turn' do
+      it 'will hit or stand depending on score' do
+        expect(new_game.dealer).to_receive(:hit_or_stand)
+      end
+    end
   end
 end

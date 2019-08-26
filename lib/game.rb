@@ -5,15 +5,15 @@ require_relative './dealer.rb'
 # require 'pry'
 
 class Game
-  attr_accessor :deck, :player, :dealer
-  attr_reader :current_player, :game_over
+  attr_accessor :deck, :player, :dealer, :current_player
+  attr_reader :game_over
 
   def initialize
     @deck = Deck.new
     @player = Player.new
     @dealer = Dealer.new
     @current_player = 'Dealer'
-    @game_over = FALSE
+    @game_over = false
   end
 
   def setup
@@ -34,12 +34,12 @@ class Game
     if choice == "Hit"
       new_card = @deck.deal
       @player.hit(new_card)
-      # puts "Hit"
     elsif choice == "Stand"
       @player.stand
-      # puts "Stand"
     elsif choice == "Quit"
       self.quit_game
+    else
+      self.get_choice
     end
   end
 
@@ -51,6 +51,12 @@ class Game
 
   def quit_game
     puts "Game Over."
+    @game_over = true
+    return 
+  end
+
+  def switch_player
+    @current_player = @current_player == 'Dealer' ? 'Your' : 'Dealer'
   end
 
 end
