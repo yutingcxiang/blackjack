@@ -7,6 +7,12 @@ require_relative "../lib/dealer.rb"
 
 RSpec.describe "Game" do
   let(:new_game) { Game.new }
+  let(:a_diamonds) { Card.new('A', 'Diamonds') } 
+  let(:k_spades) { Card.new('K', "Spades") } 
+  let(:three_hearts) { Card.new('3', "Hearts") } 
+  let(:j_hearts) { Card.new('J', "Hearts") } 
+  let(:five_clubs) { Card.new('5', "Clubs") } 
+  let(:a_hearts) { Card.new('A', 'Hearts') } 
 
   context "initializes new game" do
     it 'initializes a new deck' do
@@ -22,7 +28,7 @@ RSpec.describe "Game" do
     end
 
     it 'initializes with the dealer as current player' do
-      expect(new_game.current_player).to eql('Dealer')
+      expect(new_game.current_player).to eql('Your')
     end
 
     it 'initializes with the game as not over' do
@@ -47,7 +53,7 @@ RSpec.describe "Game" do
     it 'will end the game' do
       new_game.quit_game
       expect(new_game.game_over).to be true
-      expect { new_game.quit_game }.to output("Game Over.\n").to_stdout
+      expect { new_game.quit_game }.to output("Game Over. Dealer wins!\n").to_stdout
     end
   end
 
@@ -95,11 +101,12 @@ RSpec.describe "Game" do
   describe '#switch_player' do
     context 'if current player is dealer' do
       before :each do
+        new_game.current_player = "Dealer's"
         new_game.switch_player
       end
 
       it 'switches to human player' do
-        expect(new_game.current_player).to eql('Your')
+        expect(new_game.current_player).to eql("Your")
       end
     end
 
@@ -110,22 +117,79 @@ RSpec.describe "Game" do
       end
 
       it `switches to dealer's turn` do
-        expect(new_game.current_player).to eql('Dealer')
+        expect(new_game.current_player).to eql("Dealer's")
     end
 
     end
   end
 
-  describe '#play_game' do
-
-    describe "each turn it calculates score for both players" do
-
+  describe '#winner' do
+    context 'Tie game' do
+      it 'prints Tie game!' do
+      expect{new_game.winner('Tie')}.to output("Tie game!\n").to_stdout
+      end
     end
 
-    #switches current_player, checks game_over?, ends game with end_game
-    describe 'dealer will play on his turn' do
-      it 'will hit or stand depending on score' do
-        expect(new_game.dealer).to_receive(:hit_or_stand)
+    context 'dealer is winner' do
+      it 'prints dealer wins' do
+        expect{new_game.winner('Dealer')}.to output("Dealer wins!\n").to_stdout
+      end
+    end
+
+    context 'player is winner' do
+      it 'prints you win' do
+        expect{new_game.winner('You')}.to output("You win!\n").to_stdout
+      end
+    end
+  end
+
+  describe '#play_game' do
+    before :each do
+      new_game.player.hit(a_diamonds)
+      new_game.player.hit(k_spades)
+    end
+
+    describe "check for victory conditions" do
+      context 'player has a score of 21' do
+        it 'ends the game' do
+
+        end
+      end
+
+      context 'dealer has a score of 21' do
+        it 'ends the game' do
+          #end game
+        end
+      end
+      
+      context 'if player has busted' do
+        it 'ends the game with dealer as winner' do
+        end
+      end
+
+      context 'if dealer has busted' do
+        it 'ends the game with player as winner' do
+        end
+      end
+
+      context 'both player or dealer is standing' do
+        context 'dealer has a higher score' do
+          it 'ends the game with dealer as winner' do
+          end
+        end
+
+        context 'player has a higher score' do
+          it 'ends the game with player as winner' do
+          end
+        end
+      end
+    end
+
+    describe 'checks for turn' do
+      context "dealer's turn" do
+      end
+
+      context "human player's turn" do
       end
     end
   end

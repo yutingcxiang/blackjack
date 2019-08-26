@@ -12,7 +12,7 @@ class Game
     @deck = Deck.new
     @player = Player.new
     @dealer = Dealer.new
-    @current_player = 'Dealer'
+    @current_player = 'Your'
     @game_over = false
   end
 
@@ -50,14 +50,35 @@ class Game
   end
 
   def quit_game
-    puts "Game Over."
+    puts "Game Over. Dealer wins!"
     @game_over = true
     return 
   end
 
+
   def switch_player
-    @current_player = @current_player == 'Dealer' ? 'Your' : 'Dealer'
+    @current_player = @current_player == "Dealer's" ? 'Your' : "Dealer's"
   end
+
+  def winner(player)
+    if player == "Tie" 
+      puts "Tie game!"
+    elsif player == 'You'
+      puts "You win!"
+    else
+      puts "Dealer wins!"
+    end
+  end
+
+  # def play_game
+  #   if @player.calculate_hand == @dealer.calculate_hand
+  #     puts "Tie game!" 
+  #   elsif @player.calculate_hand > @dealer.calculate_hand
+  #     puts "You win!"
+  #   else
+  #     puts "Dealer wins!"
+  #   end
+  # end
 
 end
 
