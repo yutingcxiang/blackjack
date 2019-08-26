@@ -30,25 +30,29 @@ class Game
     @dealer.hit(card4)
   end
 
-  # def player_turn
-  #   puts "What would you like to do?\nHit | Stand | Quit\n"
-  #   player_input = gets.chomp
-    
-  #   if player_input == "Hit"
-  #     new_card = @deck.deal
-  #     @player.hit(new_card)
-  #     return "Hit"
-  #   elsif player_input == "Stand"
-  #     @player.stand
-  #     return "Stand"
-  #   end
-  # end
+  def player_turn(choice)
+    if choice == "Hit"
+      new_card = @deck.deal
+      @player.hit(new_card)
+      # puts "Hit"
+    elsif choice == "Stand"
+      @player.stand
+      # puts "Stand"
+    elsif choice == "Quit"
+      self.quit_game
+    end
+  end
 
   def get_choice
     puts "What would you like to do?\nHit | Stand | Quit\n"
     player_input = gets.chomp
     return player_input
   end
+
+  def quit_game
+    puts "Game Over."
+  end
+
 end
 
 # binding.pry

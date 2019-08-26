@@ -57,60 +57,49 @@ RSpec.describe "Game" do
     end
   end
 
-  describe '#end_game' do
-    #close out application
+  describe '#quit_game' do
+    it 'will end the game' do
+      new_game.quit_game
+      expect { new_game.quit_game }.to output("Game Over.\n").to_stdout
+    end
   end
 
-  # describe '#player_turn' do
-  #   it 'asks the player for input' do
-  #     new_game.player_turn
-  #     expect { new_game.player_turn }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
-  #   end
-
-  #   before do
-  #     allow(new_game).to receive(:gets).and_return("Hit", "Stand", "Quit", "dsfgsdgfs")
-  #   end
-
-  #   it 'will give the player another card if Hit is chosen' do
-  #     new_game.player_turn
-  #     expect(new_game.player_turn).to eql("Hit")
-  #     expect(new_game.player.num_cards).not_to eql(0)
-  #     expect(new_game.player.calculate_hand).not_to eql(0)
-  #   end
-
-  #   it 'will not give the player another card if Stand is chosen' do
-  #     # new_game.player_turn
-  #     expect(new_game.player_turn).to eql("Stand")
-  #     expect(new_game.player.num_cards).to eql(1)
-  #   end
-
-  #   it 'will quit the game if Quit is chosen' do
-  #     new_game.player_turn
-  #   end
-
-  #   it 'will prompt player for another input if choice is invalid' do
-  #   end
-  # end
-
-  describe '#get_choice' do
-    before do
-      allow(new_game).to receive(:gets).and_return("Hit", "Stand", "Quit", "dsfgsdgfs")
+  describe '#player_turn' do
+    it 'will give the player another card if Hit is chosen' do
+      new_game.player_turn("Hit")
+      expect(new_game.player.num_cards).not_to eql(0)
+      expect(new_game.player.calculate_hand).not_to eql(0)
     end
 
+    it 'will not give the player another card if Stand is chosen' do
+      new_game.player_turn("Stand")
+      expect(new_game.player.num_cards).to eql(0)
+      expect(new_game.player.calculate_hand).to eql(0)
+    end
+
+    it 'will quit the game if Quit is chosen' do
+      new_game.player_turn("Quit")
+      expect { new_game.quit_game }.to output("Game Over.\n").to_stdout
+    end
+
+    it 'will prompt player for another input if choice is invalid' do
+    end
+  end
+
+  describe '#get_choice' do
     it 'asks the player for input' do
       expect { new_game.get_choice }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
     end
 
-    it 'received Hit from player' do
-      choice = new_game.get_choice
-      expect(choice).to eq('Hit')
-      choice = new_game.get_choice
-      expect(choice).to eq('Stand')
-      choice = new_game.get_choice
-      expect(choice).to eq('Quit')
+    before do
+      allow(new_game).to receive(:gets).and_return("Hit", "Stand", "Quit", "What?")
     end
 
-    it 'handles invalid input' do
+    it 'receives a choice from player' do
+      expect(new_game.get_choice).to eq('Hit')
+      expect(new_game.get_choice).to eq('Stand')
+      expect(new_game.get_choice).to eq('Quit')
+      expect(new_game.get_choice).to eq('What?')
     end
   end
 
