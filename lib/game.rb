@@ -2,7 +2,6 @@ require_relative './card.rb'
 require_relative './deck.rb'
 require_relative './player.rb'
 require_relative './dealer.rb'
-# require 'pry'
 
 class Game
   attr_accessor :deck, :player, :dealer, :current_player
@@ -36,6 +35,7 @@ class Game
       @player.hit(new_card)
     elsif choice == "Stand"
       @player.stand
+      @game_over = true
     elsif choice == "Quit"
       self.quit_game
     else
@@ -50,44 +50,53 @@ class Game
   end
 
   def quit_game
-    puts "Game Over. Dealer wins!"
+    puts "Game Over."
     @game_over = true
     return 
   end
-
 
   def switch_player
     @current_player = @current_player == "Dealer's" ? 'Your' : "Dealer's"
   end
 
-  # def winner(player)
-  #   if player == "Tie" 
-  #     puts "Tie game!"
-  #   elsif player == 'You'
-  #     puts "You win!"
-  #   elsif player == "Dealer"
-  #     puts "Dealer wins!"
-  #   end
-  # end
-
-  def play_game
+  def winner
     if @player.calculate_hand == 21 and @dealer.calculate_hand == 21
       puts "Tie game!"
+      self.quit_game
     elsif @player.calculate_hand == 21
       puts "You win!"
+      self.quit_game
     elsif @dealer.calculate_hand == 21
       puts "Dealer wins!"
+      self.quit_game
     elsif @dealer.calculate_hand > 21
       puts "You win!"
+      self.quit_game
     elsif @player.calculate_hand > 21
       puts "Dealer wins!"
-    elsif @player.calculate_hand > @dealer.calculate_hand
-      puts "You win!"
-    elsif @player.calculate_hand < @dealer.calculate_hand
-      puts "Dealer wins!"
+      self.quit_game
+    end
+    if @game_over == true
+      if @player.calculate_hand > @dealer.calculate_hand
+        puts "You win!"
+      elsif @player.calculate_hand < @dealer.calculate_hand
+        puts "Dealer wins!"
+      elsif @player.calculate_hand == @dealer.calculate_hand
+        puts "Tie Game!"
+      end
     end
   end
 
+  def play_game
+    self.setup
+    while @game_over == false
+      self.winner
+      card = @deck.deal
+      if @current_player == 'You'
+        self.player_turn(card)
+      else
+        @dealer.hit_or_stand(card)
+      end
+    end
+  end
 end
-
-# binding.pry
