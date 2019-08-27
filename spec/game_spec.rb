@@ -131,7 +131,7 @@ RSpec.describe "Game" do
         end
         it 'ends the game' do
           expect(new_game.player.calculate_hand).to eq(21)
-          expect{new_game.winner}.to output("You win!\nGame Over.\n").to_stdout
+          expect{new_game.winner}.to output("You win!\n").to_stdout
         end
       end
 
@@ -142,7 +142,7 @@ RSpec.describe "Game" do
         end
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(21)
-          expect{new_game.winner}.to output("Dealer wins!\nGame Over.\n").to_stdout
+          expect{new_game.winner}.to output("Dealer wins!\n").to_stdout
         end
       end
 
@@ -156,7 +156,7 @@ RSpec.describe "Game" do
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(21)
           expect(new_game.player.calculate_hand).to eq(21)
-          expect{new_game.winner}.to output("Tie game!\nGame Over.\n").to_stdout
+          expect{new_game.winner}.to output("Tie game!\n").to_stdout
         end
       end
       
@@ -168,7 +168,7 @@ RSpec.describe "Game" do
         end
         it 'ends the game with dealer as winner' do
           expect(new_game.player.calculate_hand).to eq(25)
-          expect{new_game.winner}.to output("Dealer wins!\nGame Over.\n").to_stdout
+          expect{new_game.winner}.to output("Dealer wins!\n").to_stdout
         end
       end
 
@@ -180,7 +180,7 @@ RSpec.describe "Game" do
         end
         it 'ends the game with dealer as winner' do
           expect(new_game.dealer.calculate_hand).to eq(25)
-          expect{new_game.winner}.to output("You win!\nGame Over.\n").to_stdout
+          expect{new_game.winner}.to output("You win!\n").to_stdout
         end
       end
 

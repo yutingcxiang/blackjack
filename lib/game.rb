@@ -2,6 +2,7 @@ require_relative './card.rb'
 require_relative './deck.rb'
 require_relative './player.rb'
 require_relative './dealer.rb'
+# require 'pry'
 
 class Game
   attr_accessor :deck, :player, :dealer, :current_player
@@ -16,6 +17,8 @@ class Game
   end
 
   def setup
+    puts "Welcome to Blackjack!"
+    @game_over = false
     @deck.shuffle
 
     card1 = @deck.deal
@@ -27,15 +30,19 @@ class Game
     @dealer.hit(card3)
     card4 = @deck.deal
     @dealer.hit(card4)
+
+    @dealer.show_hand
+    @player.show_hand
   end
 
   def player_turn(choice)
     if choice == "Hit"
       new_card = @deck.deal
       @player.hit(new_card)
+      @player.show_hand
     elsif choice == "Stand"
       @player.stand
-      @game_over = true
+      @player.show_hand
     elsif choice == "Quit"
       self.quit_game
     else
@@ -62,19 +69,14 @@ class Game
   def winner
     if @player.calculate_hand == 21 and @dealer.calculate_hand == 21
       puts "Tie game!"
-      self.quit_game
     elsif @player.calculate_hand == 21
       puts "You win!"
-      self.quit_game
     elsif @dealer.calculate_hand == 21
       puts "Dealer wins!"
-      self.quit_game
     elsif @dealer.calculate_hand > 21
       puts "You win!"
-      self.quit_game
     elsif @player.calculate_hand > 21
       puts "Dealer wins!"
-      self.quit_game
     end
     if @game_over == true
       if @player.calculate_hand > @dealer.calculate_hand
@@ -88,15 +90,13 @@ class Game
   end
 
   def play_game
+    puts `clear`
     self.setup
-    while @game_over == false
-      self.winner
-      card = @deck.deal
-      if @current_player == 'You'
-        self.player_turn(card)
-      else
-        @dealer.hit_or_stand(card)
-      end
-    end
+    self.winner
+    choice = self.get_choice
+    self.player_turn(choice)
+    self.switch_player
   end
 end
+
+# binding.pry

@@ -15,6 +15,7 @@ class Player
       for card in @hand
         held_cards += "#{card.read}"
       end
+      puts "Your hand: " + held_cards
       return held_cards
     end
   end
