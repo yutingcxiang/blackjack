@@ -84,17 +84,14 @@ class Game
     @game_over = true
     print "Game Over. "
 
-    @dealer.show_hand
-    @player.show_hand
+    if @dealer.num_cards > 1 && @player.num_cards > 1
+      @dealer.show_hand
+      @player.show_hand
+    end
 
     puts " "
-    exit!
+    # exit!
   end
-
-  # def show_hands_and_totals
-  #   puts "Your hand: #{@player.show_hand} - Total: #{@player.calculate_hand}"
-  #   puts "Dealer's hand: #{@dealer.show_hand} - Total: #{@dealer.calculate_hand}"
-  # end
 
   def higher_score
     if @player.calculate_hand > @dealer.calculate_hand

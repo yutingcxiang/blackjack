@@ -54,7 +54,7 @@ RSpec.describe "Game" do
     it 'will end the game' do
       new_game.quit_game
       expect(new_game.game_over).to be true
-      expect { new_game.quit_game }.to output("Game Over.\n").to_stdout
+      expect { new_game.quit_game }.to output("Game Over.  \n").to_stdout
     end
   end
 
@@ -129,10 +129,11 @@ RSpec.describe "Game" do
         before do
           new_game.player.hit(a_diamonds)
           new_game.player.hit(k_spades)
+          new_game.dealer.hit(five_clubs)
         end
         it 'ends the game' do
           expect(new_game.player.calculate_hand).to eq(21)
-          expect{new_game.winner}.to output("You win!\n").to_stdout
+          expect{new_game.winner}.to output("You win!\nGame Over.  \n").to_stdout
         end
       end
 
@@ -140,10 +141,11 @@ RSpec.describe "Game" do
         before do
           new_game.dealer.hit(a_diamonds)
           new_game.dealer.hit(k_spades)
+          new_game.player.hit(five_clubs)
         end
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(21)
-          expect{new_game.winner}.to output("Dealer wins!\n").to_stdout
+          expect{new_game.winner}.to output("Dealer wins!\nGame Over.  \n").to_stdout
         end
       end
 
@@ -157,7 +159,7 @@ RSpec.describe "Game" do
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(21)
           expect(new_game.player.calculate_hand).to eq(21)
-          expect{new_game.winner}.to output("Tie game!\n").to_stdout
+          expect{new_game.winner}.to output("Tie game!\nGame Over.").to_stdout
         end
       end
       
@@ -169,7 +171,7 @@ RSpec.describe "Game" do
         end
         it 'ends the game with dealer as winner' do
           expect(new_game.player.calculate_hand).to eq(25)
-          expect{new_game.winner}.to output("Dealer wins!\n").to_stdout
+          expect{new_game.winner}.to output("Dealer wins!\nGame Over.  \n").to_stdout
         end
       end
 
@@ -181,7 +183,7 @@ RSpec.describe "Game" do
         end
         it 'ends the game with dealer as winner' do
           expect(new_game.dealer.calculate_hand).to eq(25)
-          expect{new_game.winner}.to output("You win!\n").to_stdout
+          expect{new_game.winner}.to output("You win!\nGame Over.  \n").to_stdout
         end
       end
     end
@@ -197,9 +199,9 @@ RSpec.describe "Game" do
           new_game.dealer.hit(three_hearts)
         end
         it 'ends the game with player as winner' do
-          expect(new_game.player.higher_score).to eq(20)
-          expect(new_game.dealer.higher_score).to eq(8)
-          expect{new_game.winner}.to output("You win!\n").to_stdout
+          expect(new_game.player.calculate_hand).to eq(20)
+          expect(new_game.dealer.calculate_hand).to eq(8)
+          expect{new_game.higher_score}.to output("You win!\n").to_stdout
         end
       end
 
@@ -211,21 +213,13 @@ RSpec.describe "Game" do
           new_game.player.hit(three_hearts)
         end
         it 'ends the game with dealer as winner' do
-          expect(new_game.dealer.higher_score).to eq(20)
-          expect(new_game.player.higher_score).to eq(8)
-          expect{new_game.winner}.to output("Dealer wins!\n").to_stdout
+          expect(new_game.dealer.calculate_hand).to eq(20)
+          expect(new_game.player.calculate_hand).to eq(8)
+          expect{new_game.higher_score}.to output("Dealer wins!\n").to_stdout
         end
       end
     end
   end
-
-  # describe "#show_hands_and_totals" do
-  #   it 'will display the hands and total for player and dealer' do
-  #     new_game.player.hit(a_diamonds)
-  #     new_game.dealer.hit(two_diamonds)
-  #     expect{new_game.show_hands_and_totals}.to output("| A of Diamonds |\nYour hand: | A of Diamonds | - Total: 11\n| 2 of Diamonds |\nDealer's hand: | 2 of Diamonds | - Total: 2\n").to_stdout
-  #   end
-  # end
 
   describe '#dealer_turn' do
     context 'will hit or stand depending on score' do
@@ -257,19 +251,19 @@ RSpec.describe "Game" do
         expect(new_game.dealer.calculate_hand).to eql(20)
         new_game.dealer_turn
         expect(new_game.dealer.calculate_hand).to eql(20)
-        expect{new_game.dealer_turn}.to output("Dealer's Total: 20\n").to_stdout
+        expect{new_game.dealer_turn}.to output(" \nDealer stands.\nDealer's Total: 20\n \n").to_stdout
       end
     end
   end
 
-  describe '#play_game' do
-    describe "ends game" do
-    end
+  # describe '#play_game' do
+  #   describe "ends game" do
+  #   end
     # context 'both player or dealer is standing' do
     #   context 'dealer has a higher score' do
     #     it 'ends the game with dealer as winner' do
     #     end
     #   end
     # end
-  end
+  # end
 end
