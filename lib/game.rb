@@ -69,11 +69,10 @@ class Game
   def quit_game
     @game_over = true
     puts "Game Over."
-    return 
   end
 
   def show_hands_and_totals
-        puts "Your hand: #{@player.show_hand} - Total: #{@player.calculate_hand}"
+    puts "Your hand: #{@player.show_hand} - Total: #{@player.calculate_hand}"
     puts "Dealer's hand: #{@dealer.show_hand} - Total: #{@dealer.calculate_hand}"
   end
 

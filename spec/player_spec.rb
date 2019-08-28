@@ -15,7 +15,7 @@ RSpec.describe 'Player' do
   context 'when new player is created' do
     it "will have an empty hand" do
       expect(new_player.hand).to be_empty
-      expect(new_player.show_hand).to eql("No cards in hand.")
+      expect{new_player.show_hand}.to output("No cards in hand.\n").to_stdout
     end
 
     it 'will have a max of 0' do
@@ -38,9 +38,9 @@ RSpec.describe 'Player' do
   describe "#stand" do
     it 'returns the current max value' do
       new_player.stand
-      expect(new_player.stand).to eql("Standing | Total: 0")
+      expect{new_player.stand}.to output("Total: 0\n").to_stdout
       new_player.hit(k_spades)
-      expect(new_player.stand).to eql("Standing | Total: 10")
+      expect{new_player.stand}.to output("Total: 10\n").to_stdout
     end
   end
 
@@ -56,11 +56,11 @@ RSpec.describe 'Player' do
 
   describe '#show_hand' do
     it 'displays the value of the cards in hand' do
-      expect(new_player.show_hand).to eql("No cards in hand.")
+      expect{new_player.show_hand}.to output("No cards in hand.\n").to_stdout
       new_player.hit(a_diamonds)
-      expect(new_player.show_hand).to eql("| A of Diamonds |")
+      expect{new_player.show_hand}.to output("Your hand: | A of Diamonds |\n").to_stdout
       new_player.hit(k_spades) 
-      expect(new_player.show_hand).to eql("| A of Diamonds || K of Spades |")
+      expect{new_player.show_hand}.to output("Your hand: | A of Diamonds || K of Spades |\n").to_stdout
     end
   end
 

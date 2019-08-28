@@ -215,13 +215,13 @@ RSpec.describe "Game" do
     end
   end
 
-  describe "#show_hands_and_totals" do
-    it 'will display the hands and total for player and dealer' do
-      new_game.player.hit(a_diamonds)
-      new_game.dealer.hit(two_diamonds)
-      expect{new_game.show_hands_and_totals}.to output("| A of Diamonds |\nYour hand: | A of Diamonds | - Total: 11\n| 2 of Diamonds |\nDealer's hand: | 2 of Diamonds | - Total: 2\n").to_stdout
-    end
-  end
+  # describe "#show_hands_and_totals" do
+  #   it 'will display the hands and total for player and dealer' do
+  #     new_game.player.hit(a_diamonds)
+  #     new_game.dealer.hit(two_diamonds)
+  #     expect{new_game.show_hands_and_totals}.to output("| A of Diamonds |\nYour hand: | A of Diamonds | - Total: 11\n| 2 of Diamonds |\nDealer's hand: | 2 of Diamonds | - Total: 2\n").to_stdout
+  #   end
+  # end
 
   describe '#dealer_turn' do
     context 'will hit or stand depending on score' do

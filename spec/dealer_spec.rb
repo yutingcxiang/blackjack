@@ -20,13 +20,23 @@ RSpec.describe 'Dealer' do
 
   describe 'show_first_card' do
     it 'will only display the first card in hand' do
-      expect(new_dealer.show_first_card).to eql("No cards in hand.")
+      expect{new_dealer.show_hand}.to output("No cards in hand.\n").to_stdout
       new_dealer.hit(j_hearts)
-      expect(new_dealer.show_first_card).to eq(j_hearts.read)
+      expect{new_dealer.show_first_card}.to output("Dealer's hand: | J of Hearts |\n").to_stdout
       new_dealer.hit(a_diamonds)
-      expect(new_dealer.show_first_card).to eq(j_hearts.read)
+      expect{new_dealer.show_first_card}.to output("Dealer's hand: | J of Hearts |\n").to_stdout
       new_dealer.hit(six_clubs)
-      expect(new_dealer.show_first_card).to eq(j_hearts.read)
+      expect{new_dealer.show_first_card}.to output("Dealer's hand: | J of Hearts |\n").to_stdout
+    end
+  end
+
+  describe '#show_hand' do
+    it 'displays the value of the cards in hand' do
+      expect{new_dealer.show_hand}.to output("No cards in hand.\n").to_stdout
+      new_dealer.hit(a_diamonds)
+      expect{new_dealer.show_hand}.to output("Dealer's hand: | A of Diamonds |\n").to_stdout
+      new_dealer.hit(k_spades) 
+      expect{new_dealer.show_hand}.to output("Dealer's hand: | A of Diamonds || K of Spades |\n").to_stdout
     end
   end
 end

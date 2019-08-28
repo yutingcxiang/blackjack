@@ -9,14 +9,13 @@ class Player
 
   def show_hand
     if @hand.count == 0
-      return "No cards in hand."
+      puts "No cards in hand."
     else
       held_cards = ""
       for card in @hand
         held_cards += "#{card.read}"
       end
-      puts held_cards
-      return held_cards
+      puts "Your hand: #{held_cards}"
     end
   end
 
@@ -46,11 +45,9 @@ class Player
   def hit(card)
     @hand << card
     self.calculate_hand
-    # self.show_hand
   end
 
   def stand
-    puts "Max value: #{@max}"
-    return "Standing | Total: #{@max}"
+    puts "Total: #{@max}"
   end
 end
