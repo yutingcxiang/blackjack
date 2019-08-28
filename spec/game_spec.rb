@@ -184,34 +184,38 @@ RSpec.describe "Game" do
           expect{new_game.winner}.to output("You win!\n").to_stdout
         end
       end
+    end
+  end
 
-      # context 'player has a higher score' do
-      #   before do
-      #     new_game.player.hit(j_hearts)
-      #     new_game.player.hit(k_spades)
-      #     new_game.dealer.hit(five_clubs)
-      #     new_game.dealer.hit(three_hearts)
-      #   end
-      #   it 'ends the game with player as winner' do
-      #     expect(new_game.player.calculate_hand).to eq(20)
-      #     expect(new_game.dealer.calculate_hand).to eq(8)
-      #     expect{new_game.winner}.to output("You win!\n").to_stdout
-      #   end
-      # end
+  describe '#higher_score' do
+    describe 'will determine the winner based on the higher current score' do
+      context 'player has a higher score' do
+        before do
+          new_game.player.hit(j_hearts)
+          new_game.player.hit(k_spades)
+          new_game.dealer.hit(five_clubs)
+          new_game.dealer.hit(three_hearts)
+        end
+        it 'ends the game with player as winner' do
+          expect(new_game.player.higher_score).to eq(20)
+          expect(new_game.dealer.higher_score).to eq(8)
+          expect{new_game.winner}.to output("You win!\n").to_stdout
+        end
+      end
 
-      # context 'dealer has a higher score' do
-      #   before do
-      #     new_game.dealer.hit(j_hearts)
-      #     new_game.dealer.hit(k_spades)
-      #     new_game.player.hit(five_clubs)
-      #     new_game.player.hit(three_hearts)
-      #   end
-      #   it 'ends the game with dealer as winner' do
-      #     expect(new_game.dealer.calculate_hand).to eq(20)
-      #     expect(new_game.player.calculate_hand).to eq(8)
-      #     expect{new_game.winner}.to output("Dealer wins!\n").to_stdout
-      #   end
-      # end
+      context 'dealer has a higher score' do
+        before do
+          new_game.dealer.hit(j_hearts)
+          new_game.dealer.hit(k_spades)
+          new_game.player.hit(five_clubs)
+          new_game.player.hit(three_hearts)
+        end
+        it 'ends the game with dealer as winner' do
+          expect(new_game.dealer.higher_score).to eq(20)
+          expect(new_game.player.higher_score).to eq(8)
+          expect{new_game.winner}.to output("Dealer wins!\n").to_stdout
+        end
+      end
     end
   end
 
