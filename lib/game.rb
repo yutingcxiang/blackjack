@@ -58,9 +58,15 @@ class Game
     if dealer.calculate_hand < 17
       new_card = @deck.deal
       dealer.hit(new_card)
+      puts " "
+      puts "Dealer hits."
       @dealer.show_first_card
+      puts " "
     else
+      puts " "
+      puts "Dealer stands."
       @dealer.stand
+      puts " "
     end
   end
 
@@ -74,6 +80,14 @@ class Game
   def quit_game
     @game_over = true
     puts "Game Over."
+
+    if @player.calculate_hand > @dealer.calculate_hand
+      puts "You win!"
+    elsif @player.calculate_hand < @dealer.calculate_hand
+      puts "Dealer wins!"
+    elsif @player.calculate_hand == @dealer.calculate_hand
+      puts "Tie Game!"
+    end
   end
 
   # def show_hands_and_totals
@@ -88,23 +102,19 @@ class Game
   def winner
     if @player.calculate_hand == 21 and @dealer.calculate_hand == 21
       puts "Tie game!"
+      self.quit_game
     elsif @player.calculate_hand == 21
       puts "You win!"
+      self.quit_game
     elsif @dealer.calculate_hand == 21
       puts "Dealer wins!"
+      self.quit_game
     elsif @dealer.calculate_hand > 21
       puts "You win!"
+      self.quit_game
     elsif @player.calculate_hand > 21
       puts "Dealer wins!"
-    end
-    if @game_over == true
-      if @player.calculate_hand > @dealer.calculate_hand
-        puts "You win!"
-      elsif @player.calculate_hand < @dealer.calculate_hand
-        puts "Dealer wins!"
-      elsif @player.calculate_hand == @dealer.calculate_hand
-        puts "Tie Game!"
-      end
+      self.quit_game
     end
   end
 
