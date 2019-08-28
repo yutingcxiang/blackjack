@@ -8,6 +8,7 @@ require_relative "../lib/dealer.rb"
 RSpec.describe "Game" do
   let(:new_game) { Game.new }
   let(:a_diamonds) { Card.new('A', 'Diamonds') } 
+  let(:two_diamonds) { Card.new('2', 'Diamonds') } 
   let(:k_spades) { Card.new('K', "Spades") } 
   let(:three_hearts) { Card.new('3', "Hearts") } 
   let(:j_hearts) { Card.new('J', "Hearts") } 
@@ -214,16 +215,15 @@ RSpec.describe "Game" do
     end
   end
 
-  describe '#dealer_turn' do
-    it 'dealer will only show first card in hand' do
-      expect(new_game.dealer.calculate_hand).to eql(0)
-      new_game.dealer_turn
-      expect(new_game.dealer.show_hand).to eq('| A of Diamonds |')
-      new_game.dealer_turn
-      expect(new_game.dealer.num_cards).to eq(2)
-      expect(new_game.dealer.show_hand).to eq('| A of Diamonds |')
+  describe "#show_hands_and_totals" do
+    it 'will display the hands and total for player and dealer' do
+      new_game.player.hit(a_diamonds)
+      new_game.dealer.hit(two_diamonds)
+      expect{new_game.show_hands_and_totals}.to output("| A of Diamonds |\nYour hand: | A of Diamonds | - Total: 11\n| 2 of Diamonds |\nDealer's hand: | 2 of Diamonds | - Total: 2\n").to_stdout
     end
-    
+  end
+
+  describe '#dealer_turn' do
     context 'will hit or stand depending on score' do
       it 'hits if until total is 17 or more' do
         expect(new_game.dealer.calculate_hand).to eql(0)

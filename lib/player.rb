@@ -15,7 +15,7 @@ class Player
       for card in @hand
         held_cards += "#{card.read}"
       end
-      puts "Your hand: " + held_cards
+      puts held_cards
       return held_cards
     end
   end
@@ -51,6 +51,6 @@ class Player
 
   def stand
     puts "Max value: #{@max}"
-    return "Max value: #{@max}"
+    return "Standing | Total: #{@max}"
   end
 end

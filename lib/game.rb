@@ -54,7 +54,7 @@ class Game
     if dealer.calculate_hand < 17
       new_card = @deck.deal
       dealer.hit(new_card)
-      @dealer.show_hand
+      @dealer.show_first_card
     else
       @dealer.stand
     end
@@ -67,9 +67,14 @@ class Game
   end
 
   def quit_game
-    puts "Game Over."
     @game_over = true
+    puts "Game Over."
     return 
+  end
+
+  def show_hands_and_totals
+        puts "Your hand: #{@player.show_hand} - Total: #{@player.calculate_hand}"
+    puts "Dealer's hand: #{@dealer.show_hand} - Total: #{@dealer.calculate_hand}"
   end
 
   def switch_player
@@ -102,13 +107,13 @@ class Game
   def play_game
     puts `clear`
     self.setup
-    # while @game_over == false do
+    while @game_over == false do
       self.winner
       choice = self.get_choice
       self.player_turn(choice)
       self.switch_player
-
-    # end
+      self.dealer_turn
+    end
   end
 end
 
