@@ -38,9 +38,9 @@ RSpec.describe 'Player' do
   describe "#stand" do
     it 'returns the current max value' do
       new_player.stand
-      expect{new_player.stand}.to output("Total: 0\n").to_stdout
+      expect{new_player.stand}.to output("Your Total: 0\n").to_stdout
       new_player.hit(k_spades)
-      expect{new_player.stand}.to output("Total: 10\n").to_stdout
+      expect{new_player.stand}.to output("Your Total: 10\n").to_stdout
     end
   end
 

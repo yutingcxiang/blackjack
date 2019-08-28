@@ -39,4 +39,13 @@ RSpec.describe 'Dealer' do
       expect{new_dealer.show_hand}.to output("Dealer's hand: | A of Diamonds || K of Spades |\n").to_stdout
     end
   end
+
+  describe "#stand" do
+    it 'returns the current max value' do
+      new_dealer.stand
+      expect{new_dealer.stand}.to output("Dealer's Total: 0\n").to_stdout
+      new_dealer.hit(k_spades)
+      expect{new_dealer.stand}.to output("Dealer's Total: 10\n").to_stdout
+    end
+  end
 end

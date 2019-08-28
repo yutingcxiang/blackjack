@@ -17,7 +17,6 @@ class Game
   end
 
   def setup
-    puts "Welcome to Blackjack!"
     @game_over = false
     @deck.shuffle
 
@@ -31,17 +30,22 @@ class Game
     card4 = @deck.deal
     @dealer.hit(card4)
 
-    @dealer.show_hand
+    puts "Welcome to Blackjack!"
+    puts " "
+    @dealer.show_first_card
     @player.show_hand
+    puts " "
   end
 
   def player_turn(choice)
     if choice == "Hit"
       new_card = @deck.deal
       @player.hit(new_card)
+      puts " "
       @player.show_hand
     elsif choice == "Stand"
       @player.stand
+      puts " "
       @player.show_hand
     elsif choice == "Quit"
       self.quit_game
@@ -62,6 +66,7 @@ class Game
 
   def get_choice
     puts "What would you like to do?\nHit | Stand | Quit\n"
+    puts ""
     player_input = gets.chomp
     return player_input
   end
@@ -71,10 +76,10 @@ class Game
     puts "Game Over."
   end
 
-  def show_hands_and_totals
-    puts "Your hand: #{@player.show_hand} - Total: #{@player.calculate_hand}"
-    puts "Dealer's hand: #{@dealer.show_hand} - Total: #{@dealer.calculate_hand}"
-  end
+  # def show_hands_and_totals
+  #   puts "Your hand: #{@player.show_hand} - Total: #{@player.calculate_hand}"
+  #   puts "Dealer's hand: #{@dealer.show_hand} - Total: #{@dealer.calculate_hand}"
+  # end
 
   def switch_player
     @current_player = @current_player == "Dealer's" ? 'Your' : "Dealer's"

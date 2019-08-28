@@ -23,4 +23,8 @@ class Dealer < Player
       puts "Dealer's hand: #{held_cards}"
     end
   end
+
+  def stand
+    puts "Dealer's Total: #{@max}"
+  end
 end

@@ -48,6 +48,6 @@ class Player
   end
 
   def stand
-    puts "Total: #{@max}"
+    puts "Your Total: #{@max}"
   end
 end

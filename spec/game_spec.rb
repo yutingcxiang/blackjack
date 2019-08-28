@@ -84,7 +84,7 @@ RSpec.describe "Game" do
 
   describe '#get_choice' do
     it 'asks the player for input' do
-      expect { new_game.get_choice }.to output("What would you like to do?\nHit | Stand | Quit\n").to_stdout
+      expect { new_game.get_choice }.to output("What would you like to do?\nHit | Stand | Quit\n\n").to_stdout
     end
 
     before do
@@ -253,7 +253,7 @@ RSpec.describe "Game" do
         expect(new_game.dealer.calculate_hand).to eql(20)
         new_game.dealer_turn
         expect(new_game.dealer.calculate_hand).to eql(20)
-        expect{new_game.dealer_turn}.to output("Max value: 20\n").to_stdout
+        expect{new_game.dealer_turn}.to output("Dealer's Total: 20\n").to_stdout
       end
     end
   end
