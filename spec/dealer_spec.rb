@@ -18,27 +18,27 @@ RSpec.describe 'Dealer' do
     end
   end
 
-  describe '#hit_or_stand' do
-    it 'hits if max is below 17' do
-      expect(new_dealer.calculate_hand).to eql(0)
-      new_dealer.hit_or_stand(k_spades)
-      expect(new_dealer.calculate_hand).to eql(10)
-      new_dealer.hit_or_stand(five_hearts)
-      expect(new_dealer.calculate_hand).to eql(15)
-      new_dealer.hit_or_stand(seven_hearts)
-      expect(new_dealer.calculate_hand).to eql(22)
-    end
+  # describe '#hit_or_stand' do
+  #   it 'hits if max is below 17' do
+  #     expect(new_dealer.calculate_hand).to eql(0)
+  #     new_dealer.hit_or_stand(k_spades)
+  #     expect(new_dealer.calculate_hand).to eql(10)
+  #     new_dealer.hit_or_stand(five_hearts)
+  #     expect(new_dealer.calculate_hand).to eql(15)
+  #     new_dealer.hit_or_stand(seven_hearts)
+  #     expect(new_dealer.calculate_hand).to eql(22)
+  #   end
 
-    it 'stands if max is above or equal to 17' do
-      expect(new_dealer.calculate_hand).to eql(0)
-      new_dealer.hit_or_stand(a_diamonds)
-      expect(new_dealer.calculate_hand).to eql(11)
-      new_dealer.hit_or_stand(seven_hearts)
-      expect(new_dealer.calculate_hand).to eql(18)
-      new_dealer.hit_or_stand(five_hearts)
-      expect(new_dealer.calculate_hand).to eql(18)
-    end
-  end
+  #   it 'stands if max is above or equal to 17' do
+  #     expect(new_dealer.calculate_hand).to eql(0)
+  #     new_dealer.hit_or_stand(a_diamonds)
+  #     expect(new_dealer.calculate_hand).to eql(11)
+  #     new_dealer.hit_or_stand(seven_hearts)
+  #     expect(new_dealer.calculate_hand).to eql(18)
+  #     new_dealer.hit_or_stand(five_hearts)
+  #     expect(new_dealer.calculate_hand).to eql(18)
+  #   end
+  # end
 
   describe 'show_hand' do
     it 'will only display the first card in hand' do

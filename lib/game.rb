@@ -50,6 +50,16 @@ class Game
     end
   end
 
+  def dealer_turn
+    if dealer.calculate_hand < 17
+      new_card = @deck.deal
+      dealer.hit(new_card)
+      @dealer.show_hand
+    else
+      @dealer.stand
+    end
+  end
+
   def get_choice
     puts "What would you like to do?\nHit | Stand | Quit\n"
     player_input = gets.chomp
@@ -92,10 +102,13 @@ class Game
   def play_game
     puts `clear`
     self.setup
-    self.winner
-    choice = self.get_choice
-    self.player_turn(choice)
-    self.switch_player
+    # while @game_over == false do
+      self.winner
+      choice = self.get_choice
+      self.player_turn(choice)
+      self.switch_player
+
+    # end
   end
 end
 

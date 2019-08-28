@@ -1,13 +1,13 @@
 require_relative './player.rb'
 
 class Dealer < Player
-  def hit_or_stand(card)
-    if @max < 17
-      self.hit(card)
-    else
-      self.stand
-    end
-  end
+  # def hit_or_stand(card)
+  #   if @calculate_hand < 17
+  #     self.hit(card)
+  #   else
+  #     self.stand
+  #   end
+  # end
 
   def show_hand
     if @hand.count == 0

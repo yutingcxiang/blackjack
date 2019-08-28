@@ -214,6 +214,50 @@ RSpec.describe "Game" do
     end
   end
 
+  describe '#dealer_turn' do
+    it 'dealer will only show first card in hand' do
+      expect(new_game.dealer.calculate_hand).to eql(0)
+      new_game.dealer_turn
+      expect(new_game.dealer.show_hand).to eq('| A of Diamonds |')
+      new_game.dealer_turn
+      expect(new_game.dealer.num_cards).to eq(2)
+      expect(new_game.dealer.show_hand).to eq('| A of Diamonds |')
+    end
+    
+    context 'will hit or stand depending on score' do
+      it 'hits if until total is 17 or more' do
+        expect(new_game.dealer.calculate_hand).to eql(0)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eq(11)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(13)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(16)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(20)
+        expect(new_game.dealer.num_cards).to eql(4)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(20)
+        expect(new_game.dealer.num_cards).to eql(4)
+      end
+
+      it 'stands if max is above or equal to 17' do
+        expect(new_game.dealer.calculate_hand).to eql(0)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eq(11)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(13)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(16)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(20)
+        new_game.dealer_turn
+        expect(new_game.dealer.calculate_hand).to eql(20)
+        expect{new_game.dealer_turn}.to output("Max value: 20\n").to_stdout
+      end
+    end
+  end
+
   describe '#play_game' do
     describe "ends game" do
     end

@@ -50,6 +50,7 @@ class Player
   end
 
   def stand
+    puts "Max value: #{@max}"
     return "Max value: #{@max}"
   end
 end
