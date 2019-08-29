@@ -47,6 +47,7 @@ class Game
       @player.stand
       puts " "
       @player.show_hand
+      puts " "
       self.higher_score
       self.quit_game
     elsif choice == "Quit"
@@ -83,24 +84,22 @@ class Game
 
   def quit_game
     @game_over = true
+    puts " "
     puts "#{@dealer.show_hand}Score: #{@dealer.calculate_hand}"
     puts "#{@player.show_hand}Score: #{@player.calculate_hand}"
     puts " "
     puts "Game Over."
     puts " "
-    # exit
+    exit
   end
 
   def higher_score
     if @player.calculate_hand > @dealer.calculate_hand
       puts "You win!"
-      puts " "
     elsif @player.calculate_hand < @dealer.calculate_hand
       puts "Dealer wins!"
-      puts " "
     elsif @player.calculate_hand == @dealer.calculate_hand
       puts "Tie Game!"
-      puts " "
     end
   end
 

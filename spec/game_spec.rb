@@ -52,7 +52,7 @@ RSpec.describe "Game" do
 
   describe '#player_turn' do
     before do
-      new_game.player_turn("Hit")
+      turn = new_game.player_turn("Hit")
     end
     it 'will give the player another card if Hit is chosen' do
       expect(new_game.player.num_cards).to eql(1)
