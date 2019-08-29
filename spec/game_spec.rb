@@ -52,7 +52,7 @@ RSpec.describe "Game" do
 
   describe '#player_turn' do
     before do
-      turn = new_game.player_turn("Hit")
+      new_game.player_turn("Hit")
     end
     it 'will give the player another card if Hit is chosen' do
       expect(new_game.player.num_cards).to eql(1)
@@ -237,33 +237,14 @@ RSpec.describe "Game" do
 
   describe '#dealer_turn' do
     context 'will hit or stand depending on score' do
-      it 'hits if until total is 17 or more' do
-        expect(new_game.dealer.calculate_hand).to eql(0)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eq(11)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eql(13)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eql(16)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eql(20)
-        expect(new_game.dealer.num_cards).to eql(4)
-        new_game.dealer_turn
+      it 'hits if total is under 17' do
+        4.times { new_game.dealer_turn }
         expect(new_game.dealer.calculate_hand).to eql(20)
         expect(new_game.dealer.num_cards).to eql(4)
       end
 
       it 'stands if max is above or equal to 17' do
-        expect(new_game.dealer.calculate_hand).to eql(0)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eq(11)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eql(13)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eql(16)
-        new_game.dealer_turn
-        expect(new_game.dealer.calculate_hand).to eql(20)
-        new_game.dealer_turn
+        5.times { new_game.dealer_turn }
         expect(new_game.dealer.calculate_hand).to eql(20)
         expect{new_game.dealer_turn}.to output(match("Dealer stands.")).to_stdout
       end
