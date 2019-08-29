@@ -9,7 +9,7 @@ class Player
 
   def show_hand
     if @hand.count == 0
-      puts "No cards in hand."
+      puts "Empty hand."
     else
       held_cards = ""
       for card in @hand

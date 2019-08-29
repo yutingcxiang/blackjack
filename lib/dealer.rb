@@ -3,7 +3,7 @@ require_relative './player.rb'
 class Dealer < Player
   def show_first_card
     if @hand.count == 0
-      puts "No cards in hand."
+      puts "Empty hand."
     else
       first_card = @hand[0]
       first_card_value = "#{first_card.read}"

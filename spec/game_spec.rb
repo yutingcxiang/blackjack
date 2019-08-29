@@ -159,7 +159,7 @@ RSpec.describe "Game" do
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(21)
           expect(new_game.player.calculate_hand).to eq(21)
-          expect{new_game.winner}.to output("Tie game!\nGame Over.").to_stdout
+          expect{new_game.winner}.to output(match(/Tie game!\nGame Over./)).to_stdout
         end
       end
       
