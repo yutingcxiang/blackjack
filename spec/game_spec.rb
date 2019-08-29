@@ -39,41 +39,38 @@ RSpec.describe "Game" do
   end
 
   describe '#setup' do
-    it 'shuffles deck' do
-      expect(new_game.deck).to receive(:shuffle)
-      new_game.setup
-    end
-
-    it 'deals two cards to the player and to the dealer' do
-      expect(new_game.player).to receive(:hit).twice
-      expect(new_game.dealer).to receive(:hit).twice
-      new_game.setup
+    it 'prints a welcome message' do
+      expect { new_game.setup }.to output(match("Welcome to Blackjack!")).to_stdout
     end
   end
 
   describe '#quit_game' do
     it 'will end the game' do
-      new_game.quit_game
-      expect(new_game.game_over).to be true
       expect { new_game.quit_game }.to output(match("Game Over.")).to_stdout
     end
   end
 
   describe '#player_turn' do
-    it 'will give the player another card if Hit is chosen' do
+    before do
       new_game.player_turn("Hit")
-      expect(new_game.player.num_cards).not_to eql(0)
-      expect(new_game.player.calculate_hand).not_to eql(0)
+    end
+    it 'will give the player another card if Hit is chosen' do
+      expect(new_game.player.num_cards).to eql(1)
+      expect(new_game.player.calculate_hand).to eql(11)
     end
 
-    it 'will not give the player another card if Stand is chosen' do
+    before do
       new_game.player_turn("Stand")
-      expect(new_game.player.num_cards).to eql(0)
-      expect(new_game.player.calculate_hand).to eql(0)
+    end
+    it 'will not give the player another card if Stand is chosen' do
+      expect(new_game.player.num_cards).to eql(1)
+      expect(new_game.player.calculate_hand).to eql(11)
     end
 
-    it 'will quit the game if Quit is chosen' do
+    before do
       new_game.player_turn("Quit")
+    end
+    it 'will quit the game if Quit is chosen' do
       expect(new_game.game_over).to be true
     end
 
@@ -161,6 +158,22 @@ RSpec.describe "Game" do
           expect(new_game.dealer.calculate_hand).to eq(21)
           expect(new_game.player.calculate_hand).to eq(21)
           expect{new_game.winner}.to output(match("Tie game!")).to_stdout
+        end
+      end
+
+      context 'both dealer and player busts' do
+        before do
+          new_game.dealer.hit(three_hearts)
+          new_game.dealer.hit(k_spades)
+          new_game.dealer.hit(q_hearts)
+          new_game.player.hit(five_clubs)
+          new_game.player.hit(k_spades)
+          new_game.player.hit(q_hearts)
+        end
+        it 'ends the game' do
+          expect(new_game.dealer.calculate_hand).to eq(23)
+          expect(new_game.player.calculate_hand).to eq(25)
+          expect{new_game.winner}.to output(match("No one wins!")).to_stdout
         end
       end
       

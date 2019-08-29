@@ -83,7 +83,6 @@ class Game
 
   def quit_game
     @game_over = true
-
     puts "#{@dealer.show_hand}Score: #{@dealer.calculate_hand}"
     puts "#{@player.show_hand}Score: #{@player.calculate_hand}"
     puts " "
@@ -112,6 +111,9 @@ class Game
   def winner
     if @player.calculate_hand == 21 and @dealer.calculate_hand == 21
       puts "Tie game!"
+      self.quit_game
+    elsif @player.calculate_hand > 21 and @dealer.calculate_hand > 21
+      puts "No one wins!"
       self.quit_game
     elsif @player.calculate_hand == 21
       puts "You win!"
