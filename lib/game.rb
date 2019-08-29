@@ -84,15 +84,12 @@ class Game
   def quit_game
     @game_over = true
 
-    # puts " "
-
-    @dealer.show_hand
-    @player.show_hand
-
+    puts "#{@dealer.show_hand}Score: #{@dealer.calculate_hand}"
+    puts "#{@player.show_hand}Score: #{@player.calculate_hand}"
     puts " "
-    puts "Game Over. "
+    puts "Game Over."
     puts " "
-    exit
+    # exit
   end
 
   def higher_score
@@ -137,6 +134,9 @@ class Game
     while @game_over == false do
       self.winner
       choice = self.get_choice
+      until ["Hit", "Stand", "Quit"].include?(choice) do
+        choice = self.get_choice
+      end
       self.player_turn(choice)
       self.switch_player
       self.dealer_turn
