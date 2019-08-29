@@ -82,24 +82,28 @@ class Game
 
   def quit_game
     @game_over = true
-    print "Game Over. "
-
-    if @dealer.num_cards > 1 && @player.num_cards > 1
-      @dealer.show_hand
-      @player.show_hand
-    end
 
     puts " "
-    # exit!
+
+    @dealer.show_hand
+    @player.show_hand
+
+    puts " "
+    puts "Game Over. "
+    puts " "
+    exit
   end
 
   def higher_score
     if @player.calculate_hand > @dealer.calculate_hand
       puts "You win!"
+      puts " "
     elsif @player.calculate_hand < @dealer.calculate_hand
       puts "Dealer wins!"
+      puts " "
     elsif @player.calculate_hand == @dealer.calculate_hand
       puts "Tie Game!"
+      puts " "
     end
   end
 

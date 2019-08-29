@@ -25,6 +25,6 @@ class Dealer < Player
   end
 
   def stand
-    puts "Dealer's Total: #{@max}"
+    puts "Dealer stands."
   end
 end

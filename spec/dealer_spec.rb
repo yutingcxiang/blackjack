@@ -41,11 +41,11 @@ RSpec.describe 'Dealer' do
   end
 
   describe "#stand" do
-    it 'returns the current max value' do
+    it 'will stand and not receive another card' do
       new_dealer.stand
-      expect{new_dealer.stand}.to output("Dealer's Total: 0\n").to_stdout
+      expect{new_dealer.stand}.to output("Dealer stands.\n").to_stdout
       new_dealer.hit(k_spades)
-      expect{new_dealer.stand}.to output("Dealer's Total: 10\n").to_stdout
+      expect{new_dealer.stand}.to output("Dealer stands.\n").to_stdout
     end
   end
 end
