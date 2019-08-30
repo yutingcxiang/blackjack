@@ -1,4 +1,4 @@
-require 'rspec'
+require 'spec_helper'
 require_relative '../lib/card.rb'
 
 RSpec.describe Card do

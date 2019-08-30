@@ -90,7 +90,7 @@ class Game
     puts " "
     puts "Game Over."
     puts " "
-    # exit
+    Kernel.exit
   end
 
   def higher_score

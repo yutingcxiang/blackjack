@@ -1,4 +1,4 @@
-require 'rspec'
+require 'spec_helper'
 require_relative "../lib/player.rb"
 require_relative "../lib/card.rb"
 
@@ -36,6 +36,10 @@ RSpec.describe 'Player' do
   end
 
   describe "#stand" do
+    before do
+      allow($stdout).to receive(:puts)
+    end
+
     it 'returns the current max value' do
       new_player.stand
       expect{new_player.stand}.to output("Your Total: 0\n").to_stdout

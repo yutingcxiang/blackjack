@@ -1,6 +1,7 @@
-require 'rspec'
+require 'spec_helper'
 require_relative "../lib/dealer.rb"
 require_relative "../lib/player.rb"
+require_relative "../lib/card.rb"
 
 RSpec.describe 'Dealer' do
   let(:new_player) { Player.new }
@@ -41,6 +42,9 @@ RSpec.describe 'Dealer' do
   end
 
   describe "#stand" do
+    before do
+      allow($stdout).to receive(:puts)
+    end
     it 'will stand and not receive another card' do
       new_dealer.stand
       expect{new_dealer.stand}.to output("Dealer stands.\n").to_stdout

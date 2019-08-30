@@ -1,11 +1,15 @@
-require 'rspec'
-require_relative "../lib/game.rb"
-require_relative "../lib/deck.rb"
-require_relative "../lib/card.rb"
-require_relative "../lib/player.rb"
-require_relative "../lib/dealer.rb"
+require 'spec_helper'
+require_relative "../lib/game"
+require_relative "../lib/deck"
+require_relative "../lib/card"
+require_relative "../lib/player"
+require_relative "../lib/dealer"
 
 RSpec.describe "Game" do
+  before do
+    allow(Kernel).to receive(:exit)
+  end
+
   let(:new_game) { Game.new }
   let(:a_diamonds) { Card.new('A', 'Diamonds') } 
   let(:two_diamonds) { Card.new('2', 'Diamonds') } 
@@ -51,26 +55,24 @@ RSpec.describe "Game" do
   end
 
   describe '#player_turn' do
-    before do
-      new_game.player_turn("Hit")
+    before :each do
+      allow($stdout).to receive(:puts)
     end
+
     it 'will give the player another card if Hit is chosen' do
+      new_game.player_turn("Hit")
       expect(new_game.player.num_cards).to eql(1)
       expect(new_game.player.calculate_hand).to eql(11)
     end
 
-    before do
-      new_game.player_turn("Stand")
-    end
     it 'will not give the player another card if Stand is chosen' do
-      expect(new_game.player.num_cards).to eql(1)
-      expect(new_game.player.calculate_hand).to eql(11)
+      new_game.player_turn("Stand")
+      expect(new_game.player.num_cards).to eql(0)
+      expect(new_game.player.calculate_hand).to eql(0)
     end
 
-    before do
-      new_game.player_turn("Quit")
-    end
     it 'will quit the game if Quit is chosen' do
+      new_game.player_turn("Quit")
       expect(new_game.game_over).to be true
     end
 
@@ -86,6 +88,7 @@ RSpec.describe "Game" do
     end
 
     before do
+      allow($stdout).to receive(:puts)
       allow(new_game).to receive(:gets).and_return("Hit", "Stand", "Quit", "What?")
     end
 
@@ -115,7 +118,7 @@ RSpec.describe "Game" do
         new_game.switch_player
       end
 
-      it `switches to dealer's turn` do
+      it "switches to dealer's turn" do
         expect(new_game.current_player).to eql("Dealer's")
       end
     end
@@ -237,6 +240,9 @@ RSpec.describe "Game" do
 
   describe '#dealer_turn' do
     context 'will hit or stand depending on score' do
+      before do
+        allow($stdout).to receive(:puts)
+      end
       it 'hits if total is under 17' do
         4.times { new_game.dealer_turn }
         expect(new_game.dealer.calculate_hand).to eql(20)
