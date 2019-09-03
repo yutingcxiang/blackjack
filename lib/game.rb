@@ -5,7 +5,7 @@ require_relative './dealer.rb'
 # require 'pry'
 
 class Game
-  attr_accessor :deck, :player, :dealer, :current_player
+  attr_accessor :deck, :player, :dealer, :current_player, :winner
   attr_reader :game_over
 
   def initialize
@@ -14,6 +14,7 @@ class Game
     @dealer = Dealer.new
     @current_player = 'Your'
     @game_over = false
+    @winner = nil
   end
 
   def setup
@@ -31,31 +32,33 @@ class Game
     @dealer.hit(card4)
 
     puts "Welcome to Blackjack!"
-    puts " "
+    puts
     @dealer.show_first_card
     @player.show_hand
-    puts " "
+    puts
   end
 
   def player_turn(choice)
     if choice == "Hit"
       new_card = @deck.deal
       @player.hit(new_card)
-      puts " "
+      puts
       @player.show_hand
     elsif choice == "Stand"
       @player.stand
-      puts " "
+      puts
       @player.show_hand
-      puts " "
+      puts
+      self.dealer_turn
       self.higher_score
       self.quit_game
     elsif choice == "Quit"
-      puts " "
+      puts
+      self.dealer_turn
       self.higher_score
       self.quit_game
     else
-      puts " "
+      puts
       self.get_choice
     end
   end
@@ -64,32 +67,31 @@ class Game
     if dealer.calculate_hand < 17
       new_card = @deck.deal
       dealer.hit(new_card)
-      puts " "
       puts "Dealer hits."
+      puts
       @dealer.show_first_card
-      puts " "
+      puts
     else
-      puts " "
       @dealer.stand
-      puts " "
+      puts
     end
   end
 
   def get_choice
     puts "What would you like to do?\nHit | Stand | Quit\n"
-    puts ""
+    puts
     player_input = gets.chomp
     return player_input
   end
 
   def quit_game
     @game_over = true
-    puts " "
+    puts
     puts "#{@dealer.show_hand}Score: #{@dealer.calculate_hand}"
     puts "#{@player.show_hand}Score: #{@player.calculate_hand}"
-    puts " "
+    puts
     puts "Game Over."
-    puts " "
+    puts
     Kernel.exit
   end
 
@@ -100,14 +102,16 @@ class Game
       puts "Dealer wins!"
     elsif @player.calculate_hand == @dealer.calculate_hand
       puts "Tie Game!"
+    elsif @player.calculate_hand > 21 and @dealer.calculate_hand > 21
+      puts "No one wins!"
     end
   end
 
-  def switch_player
-    @current_player = @current_player == "Dealer's" ? 'Your' : "Dealer's"
-  end
+  # def switch_player
+  #   @current_player = @current_player == "Dealer's" ? 'Your' : "Dealer's"
+  # end
 
-  def winner
+  def determine_winner
     if @player.calculate_hand == 21 and @dealer.calculate_hand == 21
       puts "Tie game!"
       self.quit_game
@@ -133,13 +137,12 @@ class Game
     puts `clear`
     self.setup
     while @game_over == false do
-      self.winner
+      self.determine_winner
       choice = self.get_choice
       until ["Hit", "Stand", "Quit"].include?(choice) do
         choice = self.get_choice
       end
       self.player_turn(choice)
-      self.switch_player
       self.dealer_turn
     end
   end
