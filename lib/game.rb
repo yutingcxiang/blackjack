@@ -86,6 +86,7 @@ class Game
 
   def quit_game
     @game_over = true
+    self.print_winner
     puts
     puts "#{@dealer.show_hand}Score: #{@dealer.calculate_hand}"
     puts "#{@player.show_hand}Score: #{@player.calculate_hand}"
@@ -96,40 +97,47 @@ class Game
   end
 
   def higher_score
-    if @player.calculate_hand > @dealer.calculate_hand
-      puts "You win!"
+    if @player.calculate_hand > 21 and @dealer.calculate_hand > 21
+      @winner = "None"
+    elsif @player.calculate_hand > @dealer.calculate_hand
+      @winner = "Player"
     elsif @player.calculate_hand < @dealer.calculate_hand
-      puts "Dealer wins!"
-    elsif @player.calculate_hand == @dealer.calculate_hand
-      puts "Tie Game!"
-    elsif @player.calculate_hand > 21 and @dealer.calculate_hand > 21
-      puts "No one wins!"
+      @winner = "Dealer"
+    elsif @player.calculate_hand == @dealer.calculate_hand 
+      @winner = "None"
     end
+    return @winner
   end
-
-  # def switch_player
-  #   @current_player = @current_player == "Dealer's" ? 'Your' : "Dealer's"
-  # end
 
   def determine_winner
     if @player.calculate_hand == 21 and @dealer.calculate_hand == 21
-      puts "Tie game!"
+      @winner = "None"
       self.quit_game
     elsif @player.calculate_hand > 21 and @dealer.calculate_hand > 21
-      puts "No one wins!"
+      @winner = "None"
       self.quit_game
     elsif @player.calculate_hand == 21
-      puts "You win!"
+      @winner = "Player"
       self.quit_game
     elsif @dealer.calculate_hand == 21
-      puts "Dealer wins!"
+      @winner = "Dealer"
       self.quit_game
     elsif @dealer.calculate_hand > 21
-      puts "You win!"
+      @winner = "Player"
       self.quit_game
     elsif @player.calculate_hand > 21
-      puts "Dealer wins!"
+      @winner = "Dealer"
       self.quit_game
+    end
+  end
+
+  def print_winner
+    if @winner == "Player" 
+      puts "You win!"
+    elsif @winner == "Dealer"
+      puts "Dealer wins!"
+    else
+      puts "Tie Game!"
     end
   end
 

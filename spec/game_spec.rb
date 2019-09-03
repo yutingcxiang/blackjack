@@ -104,30 +104,6 @@ RSpec.describe "Game" do
     end
   end
 
-  # describe '#switch_player' do
-  #   context 'if current player is dealer' do
-  #     before :each do
-  #       new_game.current_player = "Dealer's"
-  #       new_game.switch_player
-  #     end
-
-  #     it 'switches to human player' do
-  #       expect(new_game.current_player).to eql("Your")
-  #     end
-  #   end
-
-  #   context 'if you are the current player' do
-  #     before :each do
-  #       new_game.current_player = 'Your'
-  #       new_game.switch_player
-  #     end
-
-  #     it "switches to dealer's turn" do
-  #       expect(new_game.current_player).to eql("Dealer's")
-  #     end
-  #   end
-  # end
-
   describe '#determine_winner' do
     describe "check for victory conditions" do
       context 'player has a score of 21' do
@@ -164,7 +140,7 @@ RSpec.describe "Game" do
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(21)
           expect(new_game.player.calculate_hand).to eq(21)
-          expect{new_game.determine_winner}.to output(match("Tie game!")).to_stdout
+          expect{new_game.determine_winner}.to output(match("Tie Game!")).to_stdout
         end
       end
 
@@ -180,7 +156,7 @@ RSpec.describe "Game" do
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(23)
           expect(new_game.player.calculate_hand).to eq(25)
-          expect{new_game.determine_winner}.to output(match("No one wins!")).to_stdout
+          expect{new_game.determine_winner}.to output(match("Tie Game!")).to_stdout
         end
       end
       
@@ -222,7 +198,7 @@ RSpec.describe "Game" do
         it 'ends the game with player as winner' do
           expect(new_game.player.calculate_hand).to eq(20)
           expect(new_game.dealer.calculate_hand).to eq(8)
-          expect{new_game.higher_score}.to output(match("You win!")).to_stdout
+          expect(new_game.higher_score).to eql("Player")
         end
       end
 
@@ -236,7 +212,21 @@ RSpec.describe "Game" do
         it 'ends the game with dealer as winner' do
           expect(new_game.dealer.calculate_hand).to eq(20)
           expect(new_game.player.calculate_hand).to eq(8)
-          expect{new_game.higher_score}.to output(match("Dealer wins!")).to_stdout
+          expect(new_game.higher_score).to eql("Dealer")
+        end
+      end
+
+      context 'player and dealer have the same score' do
+        before do
+          new_game.dealer.hit(j_hearts)
+          new_game.dealer.hit(k_spades)
+          new_game.player.hit(j_hearts)
+          new_game.player.hit(k_spades)
+        end
+        it 'ends the game with dealer as winner' do
+          expect(new_game.dealer.calculate_hand).to eq(20)
+          expect(new_game.player.calculate_hand).to eq(20)
+          expect(new_game.higher_score).to eql("None")
         end
       end
     end
@@ -261,31 +251,28 @@ RSpec.describe "Game" do
     end
   end
 
-  # describe 'print_winner' do
-  #   context 'dealer has a higher score' do
-  #     it 'will print out dealer as winner' do
-  #       expect{new_game.print_winner}.to output(match("Dealer wins!")).to_stdout
-  #     end
-  #   end
+  describe 'print_winner' do
+    context 'dealer has a higher score' do
+      it 'will print out dealer as winner' do
+        new_game.winner = "Dealer"
+        expect{new_game.print_winner}.to output(match("Dealer wins!")).to_stdout
+      end
+    end
 
-  #   context 'playerhas a higher score' do
-  #     it 'will print out player as winner' do
-  #       expect{new_game.print_winner}.to output(match("You win!")).to_stdout
-  #     end
-  #   end
+    context 'playerhas a higher score' do
+      it 'will print out player as winner' do
+        new_game.winner = "Player"
+        expect{new_game.print_winner}.to output(match("You win!")).to_stdout
+      end
+    end
 
-  #   context 'dealer and player have the same score' do
-  #     it 'will print out game is a tie' do
-  #       expect{new_game.print_winner}.to output(match("Tie Game!")).to_stdout
-  #     end
-  #   end
-
-  #   context 'dealer and player both' do
-  #     it 'will print out game is a tie' do
-  #       expect{new_game.print_winner}.to output(match("Tie Game!")).to_stdout
-  #     end
-  #   end
-  # end
+    context 'dealer and player have the same score' do
+      it 'will print out game is a tie' do
+        new_game.winner = "None"
+        expect{new_game.print_winner}.to output(match("Tie Game!")).to_stdout
+      end
+    end
+  end
 
   # describe '#play_game' do
   #   describe "ends game" do
