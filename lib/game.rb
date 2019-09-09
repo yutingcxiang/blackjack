@@ -143,7 +143,7 @@ class Game
 
   def play_game
     puts `clear`
-    self.setup
+    # self.setup
     while @game_over == false do
       self.determine_winner
       choice = self.get_choice

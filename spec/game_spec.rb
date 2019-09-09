@@ -115,6 +115,9 @@ RSpec.describe "Game" do
         it 'ends the game' do
           expect(new_game.player.calculate_hand).to eq(21)
           expect{new_game.determine_winner}.to output(match("You win!")).to_stdout
+
+          new_game.determine_winner
+          expect(new_game.winner).to eql("Player")
         end
       end
 
@@ -127,6 +130,9 @@ RSpec.describe "Game" do
         it 'ends the game' do
           expect(new_game.dealer.calculate_hand).to eq(21)
           expect{new_game.determine_winner}.to output(match("Dealer wins!")).to_stdout
+
+          new_game.determine_winner
+          expect(new_game.winner).to eql("Dealer")
         end
       end
 
@@ -141,6 +147,9 @@ RSpec.describe "Game" do
           expect(new_game.dealer.calculate_hand).to eq(21)
           expect(new_game.player.calculate_hand).to eq(21)
           expect{new_game.determine_winner}.to output(match("Tie Game!")).to_stdout
+
+          new_game.determine_winner
+          expect(new_game.winner).to eql("None")
         end
       end
 
@@ -157,6 +166,9 @@ RSpec.describe "Game" do
           expect(new_game.dealer.calculate_hand).to eq(23)
           expect(new_game.player.calculate_hand).to eq(25)
           expect{new_game.determine_winner}.to output(match("Tie Game!")).to_stdout
+
+          new_game.determine_winner
+          expect(new_game.winner).to eql("None")
         end
       end
       
@@ -169,6 +181,9 @@ RSpec.describe "Game" do
         it 'ends the game with dealer as winner' do
           expect(new_game.player.calculate_hand).to eq(25)
           expect{new_game.determine_winner}.to output(match("Dealer wins!")).to_stdout
+
+          new_game.determine_winner
+          expect(new_game.winner).to eql("Dealer")
         end
       end
 
@@ -181,6 +196,9 @@ RSpec.describe "Game" do
         it 'ends the game with player as winner' do
           expect(new_game.dealer.calculate_hand).to eq(25)
           expect{new_game.determine_winner}.to output(match("You win!")).to_stdout
+
+          new_game.determine_winner
+          expect(new_game.winner).to eql("Player")
         end
       end
     end
@@ -274,14 +292,83 @@ RSpec.describe "Game" do
     end
   end
 
-  # describe '#play_game' do
-  #   describe "ends game" do
-  #   end
-    # context 'both player or dealer is standing' do
-    #   context 'dealer has a higher score' do
-    #     it 'ends the game with dealer as winner' do
-    #     end
-    #   end
-    # end
-  # end
+  describe '#play_game' do
+    context 'player wins with a higher score' do
+      before do
+        new_game.player.hit(a_diamonds)
+        new_game.player.hit(k_spades)
+        new_game.dealer.hit(j_hearts)
+        new_game.dealer.hit(q_hearts)
+    
+        allow($stdout).to receive(:puts)
+        allow(new_game).to receive(:gets).and_return("Quit")
+      end
+
+      it'ends game with player as winner' do
+        new_game.play_game
+        expect(new_game.player.calculate_hand).to eql(21)
+        expect(new_game.dealer.calculate_hand).to eql(20)
+        expect(new_game.winner).to eql("Player")
+      end
+    end
+
+    context 'dealer wins with a higher score' do
+      before do
+        new_game.dealer.hit(a_diamonds)
+        new_game.dealer.hit(k_spades)
+        new_game.player.hit(j_hearts)
+        new_game.player.hit(q_hearts)
+    
+        allow($stdout).to receive(:puts)
+        allow(new_game).to receive(:gets).and_return("Quit")
+      end
+
+      it'ends game with player as winner' do
+        new_game.play_game
+        expect(new_game.dealer.calculate_hand).to eql(21)
+        expect(new_game.player.calculate_hand).to eql(20)
+        expect(new_game.winner).to eql("Dealer")
+      end
+    end
+
+    context 'tie game if both have 21' do
+      before do
+        new_game.dealer.hit(a_diamonds)
+        new_game.dealer.hit(k_spades)
+        new_game.player.hit(a_diamonds)
+        new_game.player.hit(k_spades)
+    
+        allow($stdout).to receive(:puts)
+        allow(new_game).to receive(:gets).and_return("Quit")
+      end
+
+      it'ends game with no winner' do
+        new_game.play_game
+        expect(new_game.dealer.calculate_hand).to eql(21)
+        expect(new_game.player.calculate_hand).to eql(21)
+        expect(new_game.winner).to eql("None")
+      end
+    end
+
+    context 'tie game if both have over 21' do
+      before do
+        new_game.dealer.hit(five_clubs)
+        new_game.dealer.hit(k_spades)
+        new_game.dealer.hit(q_hearts)
+        new_game.player.hit(five_clubs)
+        new_game.player.hit(k_spades)
+        new_game.player.hit(q_hearts)
+    
+        allow($stdout).to receive(:puts)
+        allow(new_game).to receive(:gets).and_return("Quit")
+      end
+
+      it'ends game with no winner' do
+        new_game.play_game
+        expect(new_game.dealer.calculate_hand).to eql(25)
+        expect(new_game.player.calculate_hand).to eql(25)
+        expect(new_game.winner).to eql("None")
+      end
+    end
+  end
 end

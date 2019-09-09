@@ -2,4 +2,5 @@
 require_relative "../lib/game.rb"
 
 new_game = Game.new
+new_game.setup
 new_game.play_game

@@ -73,7 +73,6 @@ RSpec.describe Deck do
       # it has the same cards && the cards are in a different order
       # same_cards && different_order
       same_order = original_deck == shuffled_deck
-      
       original_sorted_cards = original_deck.sort
       shuffled_sorted_cards = shuffled_deck.sort
       same_cards = original_sorted_cards == shuffled_sorted_cards
